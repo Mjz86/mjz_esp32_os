@@ -1,3 +1,3 @@
 
 hello  " this command  makes the device connected to the ssid with correct password  and timeout is 5 second"
-wifi ssid password 5
+wifi -s ssid -p password  -t 5
