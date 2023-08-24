@@ -28,7 +28,7 @@ the sudo password  is "toor_pass"
 
 
 note  :
-it uses many libraries  and there is so many of them that i cant list them (sorry)
+it uses many libraries  and there are  so many of them  i cant list them (sorry)
 ( and for my bad use of find & replace some of the licenses are charged (sorry)
 ( i dont want to credit the code that is obviously  not mine )
 
