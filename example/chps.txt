@@ -1,0 +1,9 @@
+hello "this changes the default password to ps "
+chps toor_pass "ps"
+  hello "this shows the  permission of any password "
+  shmod toor_pass 
+  shmod ps 
+hello  " for now change back "
+chps ps "toor_pass"
+  
+  
