@@ -1,0 +1,7 @@
+hello "now select one that will run at boot after now "
+hello "and copy it to main.bin  "
+cp /example/neo48_8.wr /main.bin 
+hello "now make the copy a exe using defult root password  "
+chatt /main.bin -sudo toor_pass 101111
+ls /
+hello "now  reset the device  by hand "
