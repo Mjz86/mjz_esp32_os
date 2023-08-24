@@ -7,6 +7,11 @@
 
 if i got some time i would  clean up all of the code .
 
+uploading  the bin file :
+download main bin and esptool 
+and use the pictures (Screenshot 2023-08-24 160756.png) for guidance on how to upload  the  code 
+and dont forget to select the COM port 
+
 
 password:
 the sudo password  is "toor_pass"
