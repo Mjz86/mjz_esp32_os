@@ -1,0 +1,12 @@
+ls /
+hello "now list  examples"
+ls /example/
+
+hello "now run 2 of them "
+wr /example/hello.wr
+wr /example/neo48.wr
+
+hello "now run another one of them that uses keyboard  "
+wr /example/keyboard_cmd_exit.wr
+
+ 
