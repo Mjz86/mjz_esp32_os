@@ -3,6 +3,10 @@
  a open source operating system kernel for running wrench  byte code in a esp32 / esp32s3 microcontroller 
  with command line interface and a file system 
 
+info:
+this operating system is mainly for the  esp32s3
+and the esp32 
+
 
 
 if i got some time i would  clean up all of the code .
