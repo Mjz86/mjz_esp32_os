@@ -7,13 +7,13 @@
 
 if i got some time i would  clean up all of the code .
 
-uploading  the bin file :
+uploading  the bin file of the operating system :
 download main bin and esptool 
 and use the pictures (Screenshot 2023-08-24 160756.png) for guidance on how to upload  the  code 
 and dont forget to select the COM port 
 
 
-password:
+password of the operating system administrator:
 the sudo password  is "toor_pass"
  and the dev password  is obviously for devs and you can easily change the hash of hash in the code for your own  (use the  mjz_Str.hash 2 times or mjz_Str.mjz_hash(1)
  )
@@ -43,5 +43,5 @@ some of my code especially the string lib is from the Arduino built-in libs and 
 
 
 challenges for you  : 
-if you can Crack  the dev password and put it in the issues  :) you can't 
+if you can Crack  the operating system's original dev password  and put it in the issues  :) you can't 
 
