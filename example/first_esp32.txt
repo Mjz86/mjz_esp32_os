@@ -1,0 +1,5 @@
+ls /
+hello "now list  examples"
+ls /example/
+hello "now run one of them "
+wr /example/blink.wr 
