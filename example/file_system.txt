@@ -1,0 +1,14 @@
+ls / 
+mkdir /dir/
+touch /dir2/txt.txt w "content of file  "
+hello  " currently  cp is file only but mv is not  sorry  "
+cp  /dir2/txt.txt /dir/txt.txt
+touch /dir/txt.txt r 
+mv /dir2/  /dir/dir2/
+ls /
+ls /dir2/
+rm /dir/
+ls /
+
+
+
