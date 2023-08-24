@@ -12,7 +12,7 @@ and the esp32
 if i got some time i would  clean up all of the code .
 
 uploading  the bin file of the operating system :
-download main bin and esptool 
+download main bin and esptool and if you dont have the derives  install them (https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)
 and use the pictures (Screenshot 2023-08-24 160756.png) for guidance on how to upload  the  code 
 and dont forget to select the COM port 
 
