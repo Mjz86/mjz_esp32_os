@@ -6,7 +6,7 @@ cp  /dir2/txt.txt /dir/txt.txt
 touch /dir/txt.txt r 
 mv /dir2/  /dir/dir2/
 ls /
-ls /dir2/
+ls /dir/
 rm /dir/
 ls /
 
