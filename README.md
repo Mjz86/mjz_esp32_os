@@ -1,6 +1,6 @@
 # mjz_esp32_os
 
- a open source operating system kernel for running wrench  byte code in a esp32 / esp32s3 microcontroller 
+ an open source operating system kernel for running wrench  byte code in a esp32 / esp32s3 microcontroller 
  with command line interface and a file system 
 
 info:
