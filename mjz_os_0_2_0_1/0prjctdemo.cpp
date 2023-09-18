@@ -3,6 +3,22 @@ void str_sort_demo();
 using namespace mjz_ard;
 class mjz_Str_dir_test_class : public mjz_Str {
 public:
+  virtual void *realloc(void *ptr, size_t new_size) override{
+void * retval_ = mjz_Str::realloc( ptr, new_size);
+ bool bufr__is_in_stack = realloc_helper_is_in_stack(retval_);
+ Serial.printf("\n\n mjz_Str_dir_test_class realloces %s \n\n",bufr__is_in_stack? " in stack ":" in buffer ");
+ return retval_;
+  }
+  virtual void free(void *&ptr)override{
+ mjz_Str::free(ptr);
+ Serial.print("\n\n mjz_Str_dir_test_class frees \n\n");
+ return ;
+  }
+  virtual void free(void *const &ptr)override{
+    mjz_Str::free(ptr);
+    Serial.print("\n\n mjz_Str_dir_test_class frees \n\n");
+    return ;
+  }
   void mjz_Str_dir_test_class_created() {
     Serial.print("\n\n mjz_Str_dir_test_class constructs \n\n");
   }
