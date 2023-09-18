@@ -24,7 +24,7 @@
 
   #define USE_SD_CARD_INSTEAD_of_spiffs_or_littlefs
   #define DISPLAY_for_project_only_use_s3
-  #define IIC_DEVICES_AND_SENSORs_for_project_only_use_s3
+ // #define IIC_DEVICES_AND_SENSORs_for_project_only_use_s3
 
 
 
