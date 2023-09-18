@@ -310,7 +310,7 @@ static void vTaskCode_CLI_loop( void * pvParameters ) {
 void Task_tft_refresh( void * ) {
   for ( ;; ) {
     if ( display_do_display ) {
-      if ( xSemaphoreTake( global_wrench_mutex, 5 ) == pdTRUE ) {
+      if ( xSemaphoreTake( global_wrench_mutex, 1000 ) == pdTRUE ) {
         display_do_display = 0;
         tft_Ptr->drawRGBBitmap( 0, 0, get_img_bfr_ref().getBuffer(), 240, 280 );
         xSemaphoreGive( global_wrench_mutex ); }
