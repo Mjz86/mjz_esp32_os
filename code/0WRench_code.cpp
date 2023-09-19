@@ -66,7 +66,7 @@ const char * WRENCH_code_path_pair_array_dis[NUMber_of_WRENCH_code_path_pair_dis
 
   {
     "/main.bin", R"lgkekuf(for(;;){display_fillScreen(display_RGB_TO_color(255, 255, 255));display_display();for(k =0;k<360;k++) {for (i = 0; i< 7;i++){  for (j = 0; j< 6;j++){x = j*40; y = i*40;
- display_fillRoundRect(x ,y ,  40,  40,  5,  HSVTODISCLR(j*60-i*5+k));display_setCursor(x +15, y +15);display_setTextSize(2);display_setTextColor(0);display_print(":)");display_display();delay(5); }}}} )lgkekuf" }
+ display_fillRoundRect(x ,y ,  40,  40,  5,  HSVTODISCLR(j*60-i*5+k));display_setCursor(x +15, y +15);display_setTextSize(2);display_setTextColor(0);display_print(":)");display_display();delay(0); }}}} )lgkekuf" }
 
 };
 
