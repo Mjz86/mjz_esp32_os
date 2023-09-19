@@ -362,14 +362,14 @@ static void vTaskCode_CLI_loop(void* pvParameters) {
 
 #ifdef DISPLAY_for_project_only_use_s3
 void Task_tft_refresh(void*) {
-  vTaskPrioritySet(my_task_handel, 1);
+  vTaskPrioritySet(0, 1);
   for (;;) {
     if (display_do_display) {
       if (xSemaphoreTake(global_wrench_mutex, 1000) == pdTRUE) {
         display_do_display = 0;
-        vTaskPrioritySet(my_task_handel, 0);// for other tasks to not call the watch dog 
+        vTaskPrioritySet(0, 0);// for other tasks to not call the watch dog 
         tft_Ptr->drawRGBBitmap(0, 0, get_img_bfr_ref().getBuffer(), 240, 280);
-        vTaskPrioritySet(my_task_handel, 1);
+        vTaskPrioritySet(0, 1);
         xSemaphoreGive(global_wrench_mutex);
         
       } else {
