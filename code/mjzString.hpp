@@ -1,5 +1,5 @@
 /*
-  mjz_Str library for Wiring & mjz_ard
+  String library for Wiring & arduino
   ...mostly rewritten by Paul Stoffregen...
   Copyright (c) 2009-10 Hernando Barragan. All right reserved.
   Copyright 2011,Paul Stoffregen,paul@pjrc.com
@@ -18,6 +18,7 @@
   License along with this library; if not,write to the Free Software
   Foundation,Inc.,51 Franklin St,Fifth Floor,Boston,MA 02110-1301 USA
 */
+
 
 #ifdef __cplusplus
 
@@ -714,23 +715,11 @@ public:
   // return true on success,false on failure (in which case,the string
   // is left unchanged). reserve(0),if successful,will validate an
   // invalid string (i.e.,"if (s)" will be true afterwards)
-  if_virtual_then_virtual bool reserve(unsigned int size_);
+  if_virtual_then_virtual bool reserve(unsigned int size_,bool just_size =0);
   inline unsigned int length(void) const {
     return len;
   }
-  bool addto_length(uint32_t addition_tolen) {
-    bool ret = 1;
-
-    if ((addition_tolen + len) > capacity) {
-      ret = reserve(addition_tolen + len + 1);
-    }
-
-    if (ret) {
-      len += addition_tolen;
-    }
-
-    return ret;
-  }
+  bool addto_length(uint32_t addition_tolen,bool just_size =0) ;
 
   if_virtual_then_virtual explicit operator char *() {
     return buffer_ref();
