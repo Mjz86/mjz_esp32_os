@@ -142,5 +142,7 @@ void run_test_my_demo() {
       ++(*this_);
     }
   });
+
+  
   delete &my_str;  // virtual  destructor should call
 }
