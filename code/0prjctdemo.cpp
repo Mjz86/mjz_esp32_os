@@ -108,7 +108,7 @@ Effective C++: 55 Specific Ways to Improve Your Programs and Designs (Item 9: Ne
 or Herb Sutter's
 C++ Coding Standards: 101 Rules, Guidelines, and Best Practices (49. Avoid calling virtual functions in constructors and destructors).
 */
-    buffer_ref() = 0;
+    buffer_ref() = 0; // prevent mjz_Str::free after free because of if(buffer)
     Serial.print("\n\n mjz_Str_dir_test_class destructs \n\n");
   } // after  this the ~mjz_Str() gets clled implicitly 
   mjz_Str_dir_test_class(const mjz_Str_dir_test_class& other_)
