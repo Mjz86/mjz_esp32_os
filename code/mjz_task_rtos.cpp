@@ -335,7 +335,7 @@ static void Tiker_task_Resumer(void* tsk_handel_ptr) {
 // bytes.  For example, if each stack item is 8-bits, and this is set to 100,
 // then 100 bytes (100 * 8-bits) will be allocated.
 #define _TO_K_Byte *1024
-#define CLI_loop_STACK_SIZE 8 _TO_K_Byte
+#define CLI_loop_STACK_SIZE 16 _TO_K_Byte
 // Structure that will hold the TCB of the task being created.
 static StaticTask_t CLI_xTaskBuffer;
 

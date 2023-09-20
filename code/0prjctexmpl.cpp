@@ -80,5 +80,7 @@ void task_for_demo_examples(void* prmtr) {
 
   run_test_my_demo();
   Serial.println("\n task_for_demo_examples end  \n");
+
+  
   vTaskDelete(0);
 }

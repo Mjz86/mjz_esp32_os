@@ -308,8 +308,9 @@ void wrCallback( cmd * cmdPtr ) {
   auto prmt = get_permition_from_pass( mjz_Str( argsudo.getValue().c_str() ) );
 
   if ( cmd.getArgument( "c" ).isSet() && prmt != mjz_ard::usr ) {
+      std::shared_ptr<mjz_Str> string_mjz_Str_ptr = std::make_shared<mjz_Str>();
     mjz_File my_file = fs_objp->open( cmd.getArgument( "pf" ).getValue().c_str(), "r", 1, prmt );
-    mjz_Str buffer_mjz_str;
+    mjz_Str& buffer_mjz_str = *string_mjz_Str_ptr;// if null we have no mem :(
     size_t lenbuf = my_file.available();
     buffer_mjz_str.reserve( lenbuf );
     char * buffer_str = ( char * )buffer_mjz_str;
@@ -429,9 +430,8 @@ void crexmplCallback( cmd * cmdPtr ) {
   Stream * MY_OUT_Stream = ( stream_int_index < 0 ) ? ( ( Stream * )&Serial ) : ( mjz_ard::MJZ_stream_buffer_class_geter( stream_int_index ). get_Stream_ptr() );
 
   if ( get_permition_from_pass( mjz_Str( cmd.getArgument( "sudo" ).getValue().c_str() ) ) != mjz_ard::usr ) {
-    MY_OUT_Stream->println( " task_for_demo_examples created " );
-    xTaskCreate( task_for_demo_examples, "task_for_demo_examples", 45 * 1024, ( void * )true, 3, NULL ); }
-
+    MY_OUT_Stream->printf( " task_for_demo_examples %d  " ,xTaskCreate( task_for_demo_examples, "task_for_demo_examples", 45 * 1024, ( void * )true, 3, NULL ));}
+ MY_OUT_Stream->println( "  created " );
   if ( stream_int_index >= 0 ) {
     mjz_ard::MJZ_stream_buffer_class_geter( stream_int_index ).data_serve(); } }
 
@@ -601,6 +601,7 @@ void setupcli() {
 
 void vTaskCode_CLI_loop_setup() {
   Serial.begin( 115200 );
+  analogReadResolution(12);
   IS_MJZ_MASTER_CHIP_ID = ( MJZ_MASTER_CHIP_ID == ESP.getEfuseMac() );
   #ifdef CONFIG_IDF_TARGET_ESP32S3
   MSC_Update.end();

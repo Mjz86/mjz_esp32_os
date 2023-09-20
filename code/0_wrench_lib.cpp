@@ -1185,8 +1185,8 @@ void IO_analogRead(WRState* w, const WRValue* argv, const int argn, WRValue& ret
       wr_makeInt(&retVal, -1);
       return_and_give_mutex;
     }
-
-    wr_makeInt(&retVal, analogRead(argv[0].asInt()));
+    int readed_va=analogRead(argv[0].asInt());
+    wr_makeInt(&retVal,readed_va);
     return_and_give_mutex;
     xSemaphoreGive(global_wrench_mutex);
   }
