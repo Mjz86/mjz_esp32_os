@@ -131,18 +131,9 @@ C++ Coding Standards: 101 Rules, Guidelines, and Best Practices (49. Avoid calli
 void run_test_my_demo() {
 
   Serial.println("my data is : \" " + mjz_ard::send_command_in_cli_and_get_output("shmod") + "\"");
-  delay(5000);
+ // delay(5000);
 
   mjz_Str_dir_test_class* my_REAL_str = new mjz_Str_dir_test_class("1 hello 3 world 2");
   mjz_Str& my_str = *my_REAL_str;
-  my_str([&](mjz_Str* this_) {
-    Serial.println(this_->c_str());
-    for (int i{}; i < 1000;) {
-      Serial.println(i++);
-      ++(*this_);
-    }
-  });
-
-  
   delete &my_str;  // virtual  destructor should call
 }

@@ -38,9 +38,8 @@ void setup_SPI_PERIFERALS() {
   tft_Ptr->setTextColor(tft_Ptr->color565(128, 128, 255));
   tft_Ptr->setTextWrap(true);
   tft_Ptr->print("MJZ OS");
-  ledcAttachPin(TFT_BLK, TFT_BLK_pwm_chanel);
-  ledcSetup(TFT_BLK_pwm_chanel, 15000, 16);  // i would like  to set it to 38,000 KH but no
-  ledcWrite(TFT_BLK_pwm_chanel, 128);        // half of the brightness
+  sigmaDeltaSetup(TFT_BLK, TFT_BLK_pwm_chanel, 15000);
+  sigmaDeltaWrite(TFT_BLK_pwm_chanel, 128);
   img_bfr = new GFXcanvas16(240, 280);
 }
 

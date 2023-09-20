@@ -346,7 +346,7 @@ static StackType_t xStack_CLI_loop[CLI_loop_STACK_SIZE];
 
 static TaskHandle_t xHandle_CLI_loop = NULL;
 
-Ticker ticker__CLI_loop;
+Ticker ticker__CLI_loop[2];
 // Function that implements the task being created.
 static void vTaskCode_CLI_loop(void* pvParameters) {
   TaskHandle_t& my_Handle = *((TaskHandle_t*)pvParameters);
@@ -401,8 +401,8 @@ void run_code() {
     xStack_CLI_loop,           // Array to use as the task's stack.
     &CLI_xTaskBuffer,          // Variable to hold the task's data structure.
     0);                        // Specify the task's core affinity
-  ticker__CLI_loop.attach_ms(15, Tiker_task_suspender, (void*)&xHandle_CLI_loop);
-  ticker__CLI_loop.attach_ms(31, Tiker_task_Resumer, (void*)&xHandle_CLI_loop);
+  ticker__CLI_loop[0].attach_ms(10, Tiker_task_suspender, (void*)&xHandle_CLI_loop);
+  ticker__CLI_loop[1].attach_ms(31, Tiker_task_Resumer, (void*)&xHandle_CLI_loop);
 }
 
 #ifdef CONFIG_IDF_TARGET_ESP32S3
@@ -414,7 +414,7 @@ static StaticTask_t BLE_xTaskBuffer;
 // an array of StackType_t variables.  The size of StackType_t is dependent on
 // the RTOS port.
 
-Ticker ticker__BLE_loop;
+Ticker ticker__BLE_loop[2];
 static StackType_t xStack_BLE_loop[BLE_loop_STACK_SIZE];
 static TaskHandle_t xHandle_BLE_loop = NULL;
 static void SerialBT_tsk_CODE(void* USR__DATA) {
@@ -431,8 +431,8 @@ void mjz_create_ble_task() {
     xStack_BLE_loop,           // Array to use as the task's stack.
     &BLE_xTaskBuffer,          // Variable to hold the task's data structure.
     0);                        // Specify the task's core affinity
-  ticker__BLE_loop.attach_ms(15, Tiker_task_suspender, (void*)&xHandle_BLE_loop);
-  ticker__BLE_loop.attach_ms(31, Tiker_task_Resumer, (void*)&xHandle_BLE_loop);
+  ticker__BLE_loop[0].attach_ms(10, Tiker_task_suspender, (void*)&xHandle_BLE_loop);
+  ticker__BLE_loop[1].attach_ms(31, Tiker_task_Resumer, (void*)&xHandle_BLE_loop);
 }
 
 
