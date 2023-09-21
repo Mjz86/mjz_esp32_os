@@ -138,8 +138,19 @@ function display_mouse() {
                        display_RGB_TO_color(255));
   display_drawLine(myx, myy, myx - 4, myy + 10, display_RGB_TO_color(255));
 }
+
+exit_btn_obj = new S(200, 55, 25, 25);
+
+function display_exit() {
+  display_fillRoundRect(exit_btn_obj.x, exit_btn_obj.y, exit_btn_obj.width,  exit_btn_obj.height, 5,  display_RGB_TO_color(0));
+  display_setTextColor(display_RGB_TO_color(255));
+  display_setCursor(exit_btn_obj.x + (exit_btn_obj.width / 3),
+                    exit_btn_obj.y + (exit_btn_obj.height / 3));
+  display_setTextSize(2);
+  display_print("X");
+}
 arrayof_objects[24];
-arrayof_symbols[] = {"","","CE","C","~",".","+|","+", "-", "/", "*","%","^","_/", "="};
+arrayof_symbols[] = {"e", "pi", "CE", "C", "~", ".",  "-+", "+","-", "/",  "*",  "%", "^", "_/", "="};
 x_offset_for_buttons = 15;
 y_offset_for_buttons = 90;
 for (k, v : arrayof_objects) {
@@ -150,25 +161,27 @@ for (k, v : arrayof_objects) {
   v = new S(x_cord, y_cord, 25, 25);
 }
 display_setTextWrap(false);
-
-for (;;) {
+exited_program = 0;
+while (!exited_program) {
   display_fillScreen(display_RGB_TO_color(0, 0, 0));
   get_mouse();
   display_fillRoundRect(0, 0, 240, 50, 5, display_RGB_TO_color(64, 64, 64));
+  display_exit();
+
   for (k, v : arrayof_objects) {
     if (is_mouse_touching(v)) {
       display_fillRoundRect(v.x, v.y, v.width, v.height, 5, HSVTODISCLR(180));
     } else {
       display_fillRoundRect(v.x, v.y, v.width, v.height, 5, HSVTODISCLR(0));
     }
-    
+
     display_setTextColor(display_RGB_TO_color(32, 32, 32));
     if (k < 10) {
-        display_setCursor(v.x + (v.width / 2), v.y + (v.height / 2));
+      display_setCursor(v.x + (v.width / 2), v.y + (v.height / 2));
       display_setTextSize(1);
       display_print(k);
     } else {
-        display_setCursor(v.x + (v.width / 3), v.y + (v.height / 3));
+      display_setCursor(v.x + (v.width / 4), v.y + (v.height / 3));
       display_setTextSize(2);
       display_print(arrayof_symbols[k - 10]);
     }
@@ -176,7 +189,11 @@ for (;;) {
   display_mouse();
   display_display(1000);
   delay(1);
+  exited_program = is_mouse_touching(exit_btn_obj);
 }
+display_fillScreen(display_RGB_TO_color(0, 0, 0));
+display_display(1000);
+
 
 )lgkekuf" },
   { "/bin/mouse.bin", R"lgkekuf(for(;;){display_fillScreen(display_RGB_TO_color(0,0,0));
