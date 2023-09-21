@@ -595,8 +595,14 @@ void drawRGBBitmap_mem(WRState* w, const WRValue* argv, const int argn, WRValue&
 
 void display_display(WRState* w, const WRValue* argv, const int argn, WRValue& retVal, void* usr) {
   if (xSemaphoreTake(global_wrench_mutex, portMAX_DELAY) == pdTRUE) {
-    display_do_display = 1;
-    xSemaphoreGive(global_wrench_mutex);
+    if (argn == 1) {
+      display_do_display = 2;
+      xSemaphoreGive(global_wrench_mutex);
+      xSemaphoreTake(display_display_semaphore, (uint32_t)argv[0].asInt());
+    } else {
+      display_do_display = 1;
+      xSemaphoreGive(global_wrench_mutex);
+    }
   }
 }
 
@@ -1185,8 +1191,8 @@ void IO_analogRead(WRState* w, const WRValue* argv, const int argn, WRValue& ret
       wr_makeInt(&retVal, -1);
       return_and_give_mutex;
     }
-    int readed_va=analogRead(argv[0].asInt());
-    wr_makeInt(&retVal,readed_va);
+    int readed_va = analogRead(argv[0].asInt());
+    wr_makeInt(&retVal, readed_va);
     return_and_give_mutex;
     xSemaphoreGive(global_wrench_mutex);
   }

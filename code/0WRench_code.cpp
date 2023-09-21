@@ -38,7 +38,7 @@ const char* WRENCH_code_path_pair_array_s3[NUMber_of_WRENCH_code_path_pair_S3_ex
 };  //
 
 
-constexpr int NUMber_of_WRENCH_code_path_pair_dis_expr = 11;
+constexpr int NUMber_of_WRENCH_code_path_pair_dis_expr = 12;
 
 const char* WRENCH_code_path_pair_array_dis[NUMber_of_WRENCH_code_path_pair_dis_expr][2] = {
   { "/example/dis/hello/W.wr", R"lgkekuf(display_fillScreen(0);display_setCursor(80,160);display_setTextSize(1);display_setTextColor(display_RGB_TO_color(255,255,255));display_setTextWrap(true);display_print("hello world");display_display();)lgkekuf" },
@@ -58,17 +58,128 @@ const char* WRENCH_code_path_pair_array_dis[NUMber_of_WRENCH_code_path_pair_dis_
  display_fillScreen(0);display_setCursor(80,160);display_setTextSize(4);display_setTextColor( HSVTODISCLR( Randoen(360) ) );display_setTextWrap(true);display_print("START");display_display();delay(2000);for(i;i<100;i++)MAIN_DIS_fun();)lgkekuf" },
   { "/example/dis/var.wr", R"lgkekuf(display_fillScreen(0);display_setCursor(0,0);display_setTextSize(1);display_setTextColor(display_RGB_TO_color(255,255,255));display_setTextWrap(true);display_print(get_VAR());display_display();)lgkekuf" },
   { "/example/dis/clear.wr", R"lgkekuf(display_fillScreen(0);display_display();)lgkekuf" },
-  { "/bin/boot.bin", R"lgkekuf(mjz_change_my_NeoPixel(1,48);for(j=0;j<360;j++){mjz_set_pixel_colorhsv(0,j);mjz_pixel_show();delay(20);}mjz_pixel_clear();mjz_pixel_show();
+  { "/bin/TFT_BLK.bin", R"lgkekuf(mjz_change_my_NeoPixel(1,48);for(j=0;j<360;j++){mjz_set_pixel_colorhsv(0,j);mjz_pixel_show();delay(20);}mjz_pixel_clear();mjz_pixel_show();
  TFT_BLK =14;btn_cntrl = 21;inputmode = 1;outmode = 3;pinMode(btn_cntrl,inputmode);pinMode(TFT_BLK,outmode);
  for(;;){digitalWrite(TFT_BLK,digitalRead(btn_cntrl));delay(20);})lgkekuf" },
 
-  { "/main.bin", R"lgkekuf(x_analog_pin = 7; y_analog_pin = 6; btn_digital_pin = 0; inputmode = 1; INPUT_PULLUP = 5; pinMode(btn_digital_pin,INPUT_PULLUP);pinMode(x_analog_pin,inputmode);pinMode(y_analog_pin,inputmode);
- for(;;){display_fillScreen(display_RGB_TO_color(255,255,255)); for(k =0;k<360;k++) {for (i = 0;i< 7;i++){for (j = 0;j< 6;j++){x = j*40;y = i*40; display_fillRoundRect(x ,y ,40,40,5,HSVTODISCLR(j*60-i*5+k)); display_setCursor(x+15-(i*2),y+15-(j*2)); display_setTextSize(2); display_setTextColor(0); display_print(":)"); 
-  x_position = (analogRead(x_analog_pin) *240)/4095; y_position = 280-((analogRead(y_analog_pin)*280)/4095); button_is_active = !digitalRead(btn_digital_pin); display_fillCircle(x_position,y_position,10,display_RGB_TO_color(255)); 
- if(button_is_active){display_fillCircle(x_position,y_position,5,0);}display_display(); delay(1); }}}})lgkekuf" },
+  { "/bin/button_color.bin", R"lgkekuf(x_analog_pin = 7; y_analog_pin = 6; btn_digital_pin = 0; inputmode = 1; INPUT_PULLUP = 5; pinMode(btn_digital_pin,INPUT_PULLUP);pinMode(x_analog_pin,inputmode);pinMode(y_analog_pin,inputmode);
+  struct S(x_,y_,width_,height_){ x =x_; y= y_ ;width = 10;height = 10;if(width_ && height_){width = width_;height = height_;}};
+function is_touching_helper( S1 , S2 ){ret_is_touching = 1;s1minx = S1.x;s2minx= S2.x;s1maxx= S1.x+ S1.width;s2maxx= S2.x+ S2.width;if  (!((s1minx <= s2minx && s2minx <= s1maxx ) || (s1minx <= s2maxx && s2maxx <=  s1maxx)))ret_is_touching =0;s1miny = S1.y ;s2miny= S2.y ;s1maxy= S1.y + S1.height;s2maxy= S2.y + S2.height;if  (!((s1miny <= s2miny && s2miny <= s1maxy ) || (s1miny <= s2maxy && s2maxy <=  s1maxy )))ret_is_touching =0;return ret_is_touching;}
+function is_touching( S1 , S2 ){return is_touching_helper(S1,S2)||is_touching_helper(S2,S1);}mouse_pointer_obj = new S(0,0,4,4);hidden_object = new S(0,0,40,40);for(;;){display_fillScreen(display_RGB_TO_color(255,255,255)); for(k =0;k<360;k++) {for (i = 0;i< 7;i++){for (j = 0;j< 6;j++){
+x = j*40;y = i*40; display_fillRoundRect(x ,y ,40,40,5,HSVTODISCLR(j*60-i*5+k)); display_setCursor(x+15-(i*2),y+15-(j*2)); display_setTextSize(2); display_setTextColor(0); display_print(":)");  x_position = (analogRead(x_analog_pin) *240)/4095; y_position = 280-((analogRead(y_analog_pin)*280)/4095); button_is_active = !digitalRead(btn_digital_pin); display_fillCircle(x_position,y_position,10,display_RGB_TO_color(255)); 
+ if(button_is_active){mouse_pointer_obj.x =x_position;mouse_pointer_obj.y =y_position; if (is_touching( mouse_pointer_obj , hidden_object )) display_fillCircle(x_position,y_position,5,HSVTODISCLR(j*60-i*5+k));else display_fillCircle(x_position,y_position,5,0);}display_display(); delay(1); }}}})lgkekuf" },
+{ "/main.bin", R"lgkekuf(
 
 
-  { "/bin/main.bin", R"lgkekuf(for(;;){display_fillScreen(display_RGB_TO_color(0,0,0));
+x_analog_pin = 7;
+y_analog_pin = 6;
+btn_digital_pin = 0;
+inputmode = 1;
+INPUT_PULLUP = 5;
+pinMode(btn_digital_pin, INPUT_PULLUP);
+pinMode(x_analog_pin, inputmode);
+pinMode(y_analog_pin, inputmode);
+struct S(x_, y_, width_, height_, active_) {
+  x = x_;
+  y = y_;
+  active = active_;
+  width = 10;
+  height = 10;
+  if (width_ && height_) {
+    width = width_;
+    height = height_;
+  }
+};
+function is_touching_helper(S1, S2) {
+  ret_is_touching = 1;
+  s1minx = S1.x;
+  s2minx = S2.x;
+  s1maxx = S1.x + S1.width;
+  s2maxx = S2.x + S2.width;
+  if (!((s1minx <= s2minx && s2minx <= s1maxx) ||
+        (s1minx <= s2maxx && s2maxx <= s1maxx)))
+    ret_is_touching = 0;
+  s1miny = S1.y;
+  s2miny = S2.y;
+  s1maxy = S1.y + S1.height;
+  s2maxy = S2.y + S2.height;
+  if (!((s1miny <= s2miny && s2miny <= s1maxy) ||
+        (s1miny <= s2maxy && s2maxy <= s1maxy)))
+    ret_is_touching = 0;
+  return ret_is_touching;
+}
+function is_touching(S1, S2) {
+  return is_touching_helper(S1, S2) || is_touching_helper(S2, S1);
+}
+
+mouse_pointer_obj_global = new S(0, 0, 4, 4);
+
+function get_mouse() {
+  mouse_pointer_obj_global.x = (analogRead(x_analog_pin) * 240) / 4095;
+  mouse_pointer_obj_global.y = 280 - ((analogRead(y_analog_pin) * 280) / 4095);
+  mouse_pointer_obj_global.active = !digitalRead(btn_digital_pin);
+  return mouse_pointer_obj_global;
+}
+function is_mouse_touching(my_object) {
+  get_mouse();
+  return is_touching(mouse_pointer_obj_global, my_object) &&
+         mouse_pointer_obj_global.active;
+}
+function display_mouse() {
+  mouse_raises =
+      (mouse_pointer_obj_global.width + mouse_pointer_obj_global.height) / 2;
+  myx = mouse_pointer_obj_global.x;
+  myy = mouse_pointer_obj_global.y;
+  display_drawCircle(myx, myy, mouse_raises, 0);
+  if (mouse_pointer_obj_global.active)
+    display_drawCircle(myx, myy, mouse_raises / 2, );
+
+  display_fillTriangle(myx, myy, myx - 4, myy + 4, myx, myy + 6,
+                       display_RGB_TO_color(255));
+  display_drawLine(myx, myy, myx - 4, myy + 10, display_RGB_TO_color(255));
+}
+arrayof_objects[24];
+arrayof_symbols[] = {"","","CE","C","~",".","+|","+", "-", "/", "*","%","^","_/", "="};
+x_offset_for_buttons = 15;
+y_offset_for_buttons = 90;
+for (k, v : arrayof_objects) {
+  x_cord = (k % 5) * 40;
+  y_cord = (k / 5) * 40;
+  x_cord += x_offset_for_buttons;
+  y_cord += y_offset_for_buttons;
+  v = new S(x_cord, y_cord, 25, 25);
+}
+display_setTextWrap(false);
+
+for (;;) {
+  display_fillScreen(display_RGB_TO_color(0, 0, 0));
+  get_mouse();
+  display_fillRoundRect(0, 0, 240, 50, 5, display_RGB_TO_color(64, 64, 64));
+  for (k, v : arrayof_objects) {
+    if (is_mouse_touching(v)) {
+      display_fillRoundRect(v.x, v.y, v.width, v.height, 5, HSVTODISCLR(180));
+    } else {
+      display_fillRoundRect(v.x, v.y, v.width, v.height, 5, HSVTODISCLR(0));
+    }
+    
+    display_setTextColor(display_RGB_TO_color(32, 32, 32));
+    if (k < 10) {
+        display_setCursor(v.x + (v.width / 2), v.y + (v.height / 2));
+      display_setTextSize(1);
+      display_print(k);
+    } else {
+        display_setCursor(v.x + (v.width / 3), v.y + (v.height / 3));
+      display_setTextSize(2);
+      display_print(arrayof_symbols[k - 10]);
+    }
+  }
+  display_mouse();
+  display_display(1000);
+  delay(1);
+}
+
+)lgkekuf" },
+  { "/bin/mouse.bin", R"lgkekuf(for(;;){display_fillScreen(display_RGB_TO_color(0,0,0));
  x_analog_pin = 7;y_analog_pin = 6;btn_digital_pin = 0;inputmode = 1;INPUT_PULLUP = 5;
  pinMode(btn_digital_pin,INPUT_PULLUP);pinMode(x_analog_pin,inputmode);pinMode(y_analog_pin,inputmode);
  x_position = analogRead(x_analog_pin);y_position = analogRead(y_analog_pin);button_is_active = !digitalRead(btn_digital_pin);

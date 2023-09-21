@@ -20,7 +20,7 @@ SPIClass* vspi_ptr = NULL;
 Adafruit_ST7789* tft_Ptr = NULL;
 GFXcanvas16* img_bfr;
 
-bool display_do_display{};
+uint8_t display_do_display{};
 void setup_SPI_PERIFERALS() {
   //initialise two instances of the SPIClass attached to VSPI and HSPI respectively
   vspi_ptr = new SPIClass(VSPI);

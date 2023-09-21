@@ -101,4 +101,7 @@ void vTaskCode_CLI_loop_setup();
 #ifdef CONFIG_IDF_TARGET_ESP32S3
   void mjz_create_ble_task();
 #endif
+#ifdef DISPLAY_for_project_only_use_s3
+extern SemaphoreHandle_t display_display_semaphore;
+#endif
 void run_code();

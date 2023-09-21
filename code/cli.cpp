@@ -669,7 +669,7 @@ void vTaskCode_CLI_loop_setup() {
   xTaskCreate( task_for_demo_examples, "task_for_demo_examples", 45 * 1024, NULL, 3, NULL );
   setupcli();
   #ifdef DISPLAY_for_project_only_use_s3
-  xTaskCreatePinnedToCore( Task_tft_refresh, "Task_tft_refresh", 5 * 1024, NULL, 1, NULL,0 );
+  xTaskCreatePinnedToCore( Task_tft_refresh, "Task_tft_refresh", 5 * 1024, NULL, 1, NULL,1 );
   #endif
   #ifdef IIC_DEVICES_AND_SENSORs_for_project_only_use_s3
   xTaskCreatePinnedToCore( oled_task, "oled_task", 1024 * 4, NULL, 0, NULL, 0 );

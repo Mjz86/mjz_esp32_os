@@ -78,7 +78,7 @@ extern SPIClass * vspi_ptr;
 extern GFXcanvas16 * img_bfr;
 inline GFXcanvas16 & get_img_bfr_ref() {
   return *img_bfr; }
-extern bool display_do_display;
+extern uint8_t display_do_display;
 // For 1.14", 1.3", 1.54", 1.69", and 2.0" TFT with ST7789:
 extern Adafruit_ST7789 * tft_Ptr; //= Adafruit_ST7789(* vspi_ptr,TFT_CS, TFT_DC, TFT_RST);
 void setup_SPI_PERIFERALS();
