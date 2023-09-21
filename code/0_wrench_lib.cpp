@@ -918,8 +918,30 @@ void mjz_SCPPLIB_max(WRState* w, const WRValue* argv, const int argn, WRValue& r
     }
   }
 }
+void str_to_f_(WRState* w, const WRValue* argv, const int argn, WRValue& retVal, void* usr) {
+  if (argn != 1) return;
+  mjz_Str my_buffer = mjz_Str::create_mjz_Str_char_array(16);
 
+  char* buf = my_buffer.C_str();
+  argv[0].asString(buf, 16);
+  buf[15] = 0;
+  wr_makeFloat(&retVal, (float)my_buffer);
+}
+uint8_t my_ret_buf_current{};
+void str_cat(WRState* w, const WRValue* argv, const int argn, WRValue& retVal, void* usr) {
+static mjz_Str my_ret_buf[4];
+  mjz_Str::replace_with_new_str(my_ret_buf[my_ret_buf_current]);
+  for (int i{}; i < argn; i++) {
+    mjz_Str my_buffer = mjz_Str::create_mjz_Str_char_array(1025);
+    argv[i].asString( my_buffer.C_str(), 1024);
+    my_ret_buf[my_ret_buf_current] +=  my_buffer.c_str();
+  }
+  wr_makeString(NULL, &retVal, (const unsigned char*)my_ret_buf[my_ret_buf_current].C_str(), my_ret_buf[my_ret_buf_current].length());
+  my_ret_buf_current++;
+}
 void loadAllLibs(WRState* w, void* usr_data = 0) {
+  wr_registerFunction(w, "str_to_f", str_to_f_, usr_data);
+  wr_registerFunction(w, "str_cat", str_cat, usr_data);
   wr_registerFunction(w, "esp_random", mjz_SCPPLIB_esp_random, usr_data);
   wr_registerFunction(w, "esp_random_pos", mjz_SCPPLIB_pos_esp_random, usr_data);
   wr_registerFunction(w, "Randoen", mjz_SCPPLIB_Random, usr_data);

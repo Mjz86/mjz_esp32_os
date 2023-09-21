@@ -1709,7 +1709,7 @@ double mjz_Str::toDouble(void) const {
   if (buffer) {
     try {
       // (this->*update_event_F_p)();
-      return std::stof(buffer);
+      return std::stod(buffer);
     } catch (...) {
       // (this->*update_event_F_p)();
       return 0;
