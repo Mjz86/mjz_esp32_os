@@ -1661,6 +1661,7 @@ mjz_Str ULL_LL_to_str(uint64_t value, int radix, bool is_signed, bool force_neg 
 }  // namespace mjz_ard
 // using mjz_ard::__FlashStringHelper;
 // using mjz_ard::mjz_Str;
+using  opt::optional;
 typedef mjz_ard::mjz_Str mjz_Str;
 typedef std::string string;
 typedef mjz_ard::hash_sha_512 hash_sha_512;
