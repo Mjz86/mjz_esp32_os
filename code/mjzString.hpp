@@ -140,7 +140,7 @@ uint64_t MJZ_strcmp(const void *ptr_1, const void *ptr_2) {
   uint64_t len_1_ = strlen((const char *)ptr_1);
   uint64_t len_2_ = strlen((const char *)ptr_2);
 
-  if (len_2_ = !len_1_) {
+  if (len_2_ !=  len_1_) {
     return -1;
   }
 
