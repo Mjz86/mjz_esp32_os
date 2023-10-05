@@ -1865,7 +1865,7 @@ void mjz_Str::update_event_ard_string() {
 
 #endif
 
-mjz_Str &mjz_Str::string_do_interpret() {
+mjz_Str mjz_Str::string_do_interpret() {
   mjz_Str out_str;
   str_helper__op_shift_input_(out_str, *this);
   return out_str;

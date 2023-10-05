@@ -1553,7 +1553,7 @@ public:
 
  
 
-  if_virtual_then_virtual mjz_Str &string_do_interpret();
+  if_virtual_then_virtual mjz_Str string_do_interpret();
   if_virtual_then_virtual void string_do_interpret(mjz_Str &instr);
   template<typename... Args_frScnf>
   int scanf(const char *format, Args_frScnf... args_frScnf) {
