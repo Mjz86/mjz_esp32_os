@@ -1964,6 +1964,51 @@ const mjz_Str &helper__op_shift_input_(const mjz_Str &rhs, const mjz_Str &CIN, m
   uint8_t is_reinterpreted{};
   constexpr uint8_t is_reinterpreted_and_is_int = 2;
   uint8_t value_reinterpreted_and_is_int{};
+  auto &reinterpret_char_char_ref = rhs.drived_mjz_Str_DATA_storage_Obj_ptr->reinterpret_char_char;
+
+  auto continue_event_is_reinterpreted_and_is_int = [&](uint16_t& i) -> bool {
+    if (bfr[i] == reinterpret_char_char_ref) {
+      bfr[i] = value_reinterpreted_and_is_int;
+      is_reinterpreted = 0;
+    } else {
+      int8_t vlal_bf = rhs.char_to_int_for_string(bfr[i]);
+
+      if (vlal_bf == -1) {
+        char bfffr = bfr[i];
+        bfr[i] = value_reinterpreted_and_is_int;
+        i++;
+        bfr[i] = bfffr;
+        is_reinterpreted = 0;
+      } else {
+        value_reinterpreted_and_is_int *= 10;
+        value_reinterpreted_and_is_int += vlal_bf;
+        i--;
+        return 1;  // continue;
+      }
+    }
+    return 0;
+  };
+  auto continue_event_is_reinterpreted =
+      [&](uint16_t &i, uint8_t &is_reinterpreted_do_not_forbid) -> bool {
+    int8_t vlal_bf = rhs.char_to_int_for_string(bfr[i]);
+
+    if (vlal_bf == -1) {
+      is_reinterpreted = 0;
+
+      if (!rhs.char_to_char_for_reinterpret(bfr[i])) {
+        i--;
+        return 1;  //  continue;
+      } else {
+        is_reinterpreted_do_not_forbid = 1;
+      }
+    } else {
+      value_reinterpreted_and_is_int = vlal_bf;
+      is_reinterpreted = is_reinterpreted_and_is_int;
+      i--;
+      return 1;  //  continue;
+    }
+    return 0;  
+  };
 
   for (uint16_t i{ 0 }; i < my_bfr_obj_length - 3; i++) {
     uint8_t is_reinterpreted_do_not_forbid{};
@@ -1971,50 +2016,19 @@ const mjz_Str &helper__op_shift_input_(const mjz_Str &rhs, const mjz_Str &CIN, m
     CURunt_index_++;
 
     if (is_reinterpreted == is_reinterpreted_and_is_int) {
-      if (bfr[i] == rhs.drived_mjz_Str_DATA_storage_Obj_ptr->reinterpret_char_char) {
-        bfr[i] = value_reinterpreted_and_is_int;
-        is_reinterpreted = 0;
-      } else {
-        int8_t vlal_bf = rhs.char_to_int_for_string(bfr[i]);
-
-        if (vlal_bf == -1) {
-          char bfffr = bfr[i];
-          bfr[i] = value_reinterpreted_and_is_int;
-          i++;
-          bfr[i] = bfffr;
-          is_reinterpreted = 0;
-        } else {
-          value_reinterpreted_and_is_int *= 10;
-          value_reinterpreted_and_is_int += vlal_bf;
-          i--;
-          continue;
-        }
+      if (continue_event_is_reinterpreted_and_is_int(i)) {
+      continue;
       }
     } else if (is_reinterpreted == 1) {
-      int8_t vlal_bf = rhs.char_to_int_for_string(bfr[i]);
-
-      if (vlal_bf == -1) {
-        is_reinterpreted = 0;
-
-        if (!rhs.char_to_char_for_reinterpret(bfr[i])) {
-          i--;
-          continue;
-        } else {
-          is_reinterpreted_do_not_forbid = 1;
-        }
-      } else {
-        value_reinterpreted_and_is_int = vlal_bf;
-        is_reinterpreted = is_reinterpreted_and_is_int;
-        i--;
-        continue;
+      if (continue_event_is_reinterpreted(i, is_reinterpreted_do_not_forbid)) {
+      continue;
       }
-    } else if (rhs.drived_mjz_Str_DATA_storage_Obj_ptr->reinterpret_char_char == bfr[i]) {
+    } else if (reinterpret_char_char_ref == bfr[i]) {
       bfr[i] = '\0';
       i--;
       is_reinterpreted = 1;
       continue;
     }
-
     if (!is_reinterpreted_do_not_forbid && rhs.is_forbiden(bfr[i])) {
       bfr[i] = '\0';
       break;

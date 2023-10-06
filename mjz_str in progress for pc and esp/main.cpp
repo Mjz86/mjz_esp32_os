@@ -145,7 +145,7 @@ uint64_t timeSinceEpochMillisec() {
 }
 
 
-int main() {
+int main2() {
   uint64_t strtms = timeSinceEpochMillisec();
   int it_num = 10000;
   for (int k{}; k < it_num; k++) {
@@ -184,4 +184,13 @@ int main() {
 
 
   return 0;
+}
+int main( ) {
+    String mystr;
+  mystr.change_reinterpret_char_char('\1');
+    std::cin >> mystr;
+  mystr.change_reinterpret_char_char('\\');
+    mystr <<= *((mjz_Str*)(&mystr));
+   std::cout << mystr;
+
 }

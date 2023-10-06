@@ -19,7 +19,6 @@
   Foundation,Inc.,51 Franklin St,Fifth Floor,Boston,MA 02110-1301 USA
 */
 
-
 #ifdef __cplusplus
 
 #ifndef __mjz_ard_STRINGS__
@@ -32,8 +31,6 @@
 #else
 #define std__string_view_if_is std::string_view
 #endif
-
-
 
 // #define if_virtual_then_virtual virtual
 
@@ -48,22 +45,18 @@
 #ifndef if_override_then_override
 #define if_override_then_override
 #endif  // if_override_then_override
-// override
+        // override
 
- #ifdef Arduino
+#ifdef Arduino
 #define if_ard_then_override override
 #else
-#define if_ard_then_override 
+#define if_ard_then_override
 unsigned long millis();
 #endif  // Arduino
 
- 
-
 #define log_mjz_str(Function, ...) (Function((const char *)__VA_ARGS__))
 
-inline uint32_t usteejtgk_millis() {
-  return millis();
-}
+inline uint32_t usteejtgk_millis() { return millis(); }
 
 class __FlashStringHelper;
 namespace mjz_ard {
@@ -79,9 +72,7 @@ struct UINT64_X2_32_t {
 };
 UINT64_X2_32_t mjz_random();
 bool get_random_chanch_bool(double chance_var);
-inline uint32_t ARD_millis() {
-  return usteejtgk_millis();
-}
+inline uint32_t ARD_millis() { return usteejtgk_millis(); }
 long long unsigned int mjz_millis();
 void Set_nth_bit_andret32(void *data, uint64_t nthbt, bool set_to);
 bool Get_nth_bit_andret32(const void *data, uint64_t nthbt);
@@ -104,7 +95,8 @@ struct hash_sha_512 {
 
 char *ultoa(uint32_t value, char *buffer, int radix);
 char *ulltoa(uint64_t value, char *buffer, int radix);
-char *b_U_lltoa(uint64_t value, char *BFR_buffer, int radix, bool is_signed, bool force_neg = 0, bool is_upper_case = 1);
+char *b_U_lltoa(uint64_t value, char *BFR_buffer, int radix, bool is_signed,
+                bool force_neg = 0, bool is_upper_case = 1);
 
 uint8_t get_num_from_char(uint8_t in_CHAR_, bool *to_neg = 0);
 
@@ -114,8 +106,9 @@ enum uint8_t_error_level : uint8_t {
   LL_ovf_prtt_off = MJZ_frm_stack_ovf_BIT(1),
   len_ovf_prtt_off = MJZ_frm_stack_ovf_BIT(2)
 };
-template<typename cmpr_type>
-uint64_t MJZ_memcmp(const void *ptr_1_, const void *ptr_2_, uint64_t size_of_data_in_byte) {
+template <typename cmpr_type>
+uint64_t MJZ_memcmp(const void *ptr_1_, const void *ptr_2_,
+                    uint64_t size_of_data_in_byte) {
   const uint8_t *ptr_1 = (const uint8_t *)ptr_1_;
   const uint8_t *ptr_2 = (const uint8_t *)ptr_2_;
   uint64_t size_of_data = size_of_data_in_byte / sizeof(cmpr_type);
@@ -133,14 +126,14 @@ uint64_t MJZ_memcmp(const void *ptr_1_, const void *ptr_2_, uint64_t size_of_dat
 
   for (uint64_t i{}; i < last_char_cmpr_size; i++) {
     last_diff_of_data |=
-      !(ptr_1[i + first_index_of_last] == ptr_2[i + first_index_of_last]);
+        !(ptr_1[i + first_index_of_last] == ptr_2[i + first_index_of_last]);
   }
 
   diff_of_data += last_diff_of_data;
   return diff_of_data;
 }
 
-template<typename cmpr_type>
+template <typename cmpr_type>
 uint64_t MJZ_strcmp(const void *ptr_1, const void *ptr_2) {
   uint64_t len_1_ = strlen((const char *)ptr_1);
   uint64_t len_2_ = strlen((const char *)ptr_2);
@@ -154,7 +147,8 @@ uint64_t MJZ_strcmp(const void *ptr_1, const void *ptr_2) {
 char GET_CHAR_from_int(uint8_t intager_in, bool is_upper_case);
 int MJZ_STRCMP(const char *p1, const char *p2);
 int MJZ_STRnCMP(const char *p1, const char *p2, unsigned long lenght);
-long long C_STR_to_LL(const char *buffer, uint8_t buffer_len, int radix, bool *had_error = 0, uint8_t error_level = 0);
+long long C_STR_to_LL(const char *buffer, uint8_t buffer_len, int radix,
+                      bool *had_error = 0, uint8_t error_level = 0);
 // When compiling programs with this class,the following gcc parameters
 // dramatically increase performance and memory (RAM) efficiency,typically
 // with little or no increase in code size.
@@ -198,14 +192,15 @@ class mjz_Str;
     void C::B::foo(){}
 
   */
-template<int N> class mjz_RingBufferN {
-public:
+template <int N>
+class mjz_RingBufferN {
+ public:
   uint8_t _aucBuffer[N];
   volatile int _iHead;
   volatile int _iTail;
   volatile int _numElems;
 
-public:
+ public:
   mjz_RingBufferN(void) if_override_then_override;
   void store_char(uint8_t c) if_override_then_override;
   void clear() if_override_then_override;
@@ -215,51 +210,62 @@ public:
   int peek() if_override_then_override;
   bool isFull() if_override_then_override;
 
-protected:
+ protected:
   int nextIndex(int index);
-  inline bool isEmpty() const {
-    return (_numElems == 0);
-  }
+  inline bool isEmpty() const { return (_numElems == 0); }
 };
 
 // The string class
 bool is_blank_characteres_default(char);
 char char_to_char_for_reinterpret_fnc_ptr_default(char);
 bool is_forbiden_character_default(char);
-std::istream &helper__op_shift_input_(const mjz_Str &rhs, std::istream &CIN, mjz_Str &get_shift_op_s);
-const mjz_Str &helper__op_shift_input_(const mjz_Str &rhs, const mjz_Str &CIN, mjz_Str &get_shift_op_s);
+std::istream &helper__op_shift_input_(const mjz_Str &rhs, std::istream &CIN,
+                                      mjz_Str &get_shift_op_s);
+const mjz_Str &helper__op_shift_input_(const mjz_Str &rhs, const mjz_Str &CIN,
+                                       mjz_Str &get_shift_op_s);
 
 class mjz_Str_DATA_storage_cls;
-class mjz_Str_DATA_storage_cls : public std::enable_shared_from_this<mjz_Str_DATA_storage_cls> {
-protected:
+class mjz_Str_DATA_storage_cls
+    : public std::enable_shared_from_this<mjz_Str_DATA_storage_cls> {
+ protected:
   std::function<bool(char)> is_blank_character = is_blank_characteres_default;
-  std::function<char(char)> char_to_char_for_reinterpret_fnc_ptr = char_to_char_for_reinterpret_fnc_ptr_default;
-  std::function<bool(char)> is_forbiden_character = is_forbiden_character_default;  // like bool (*is_forbiden_character)(char)
+  std::function<char(char)> char_to_char_for_reinterpret_fnc_ptr =
+      char_to_char_for_reinterpret_fnc_ptr_default;
+  std::function<bool(char)> is_forbiden_character =
+      is_forbiden_character_default;  // like bool
+                                      // (*is_forbiden_character)(char)
   // but better
   unsigned long _timeout = 1000;  // number of milliseconds to wait for the next
   // char before aborting timed read
   char reinterpret_char_char = '\\';
   friend class mjz_Str;
   friend void str_helper__op_shift_input_(mjz_Str &rhs, mjz_Str &CIN);
-  
-  friend std::istream &helper__op_shift_input_(const mjz_Str &rhs, std::istream &CIN, mjz_Str &get_shift_op_s);
-  friend const mjz_Str &helper__op_shift_input_(const mjz_Str &rhs, const mjz_Str &CIN, mjz_Str &get_shift_op_s);
-public:
+
+  friend std::istream &helper__op_shift_input_(const mjz_Str &rhs,
+                                               std::istream &CIN,
+                                               mjz_Str &get_shift_op_s);
+  friend const mjz_Str &helper__op_shift_input_(const mjz_Str &rhs,
+                                                const mjz_Str &CIN,
+                                                mjz_Str &get_shift_op_s);
+
+ public:
   std::shared_ptr<mjz_Str_DATA_storage_cls> getptr() {
     return shared_from_this();
   }
-  // No public constructor, only a factory function, // so there's no way to have getptr return nullptr.
+  // No public constructor, only a factory function, // so there's no way to
+  // have getptr return nullptr.
   [[nodiscard]] static std::shared_ptr<mjz_Str_DATA_storage_cls> create() {
     // Not using std::make_shared<mjz_Str_DATA_storage_cls> because the c'tor is
     // private.
-    return std::shared_ptr<mjz_Str_DATA_storage_cls>(new mjz_Str_DATA_storage_cls());
+    return std::shared_ptr<mjz_Str_DATA_storage_cls>(
+        new mjz_Str_DATA_storage_cls());
   }
 
-private:
+ private:
   mjz_Str_DATA_storage_cls() = default;
 };
 extern std::shared_ptr<mjz_Str_DATA_storage_cls>
-  main_mjz_Str_DATA_storage_Obj_ptr;
+    main_mjz_Str_DATA_storage_Obj_ptr;
 
 #ifndef Arduino
 class mjz_Str : public std__string_view_if_is {
@@ -269,13 +275,15 @@ class mjz_Str : public std__string_view_if_is {
 #else
 class mjz_Str : public if_virtual_then_virtual Stream {  //
 #endif  // Arduino
-protected:
-
-  std::shared_ptr<mjz_Str_DATA_storage_cls> drived_mjz_Str_DATA_storage_Obj_ptr = main_mjz_Str_DATA_storage_Obj_ptr->getptr();
-  bool did_drived_mjz_Str_DATA_storage_Obj_ptr_set{ 0 };
-  std::shared_ptr<mjz_Str_DATA_storage_cls> &drived_mjz_Str_DATA_storage_Obj_ptr_set();
+ protected:
+  std::shared_ptr<mjz_Str_DATA_storage_cls>
+      drived_mjz_Str_DATA_storage_Obj_ptr =
+          main_mjz_Str_DATA_storage_Obj_ptr->getptr();
+  bool did_drived_mjz_Str_DATA_storage_Obj_ptr_set{0};
+  std::shared_ptr<mjz_Str_DATA_storage_cls>
+      &drived_mjz_Str_DATA_storage_Obj_ptr_set();
   void (mjz_Str::*update_event_F_p)(
-    void);                // to call (object_ptr->*pointer_name)(arguments)//
+      void);              // to call (object_ptr->*pointer_name)(arguments)//
   char *buffer;           // the actual char array
   unsigned int capacity;  // the array length minus one (for the '\0')
   unsigned int len;       // the mjz_Str length (not counting the '\0')
@@ -292,12 +300,14 @@ protected:
   static constexpr int stack_buffer_size = 40;
   class stack_str_buf {
     bool STR_is_in_stack{};
-  public:
+
+   public:
     char stack_buffer[stack_buffer_size + 1];  // string you're searching for
 
-    stack_str_buf()
-      : STR_is_in_stack(0) {
-      for (long i{}; i <= stack_buffer_size; i++) { stack_buffer[i] = 0; }
+    stack_str_buf() : STR_is_in_stack(0) {
+      for (long i{}; i <= stack_buffer_size; i++) {
+        stack_buffer[i] = 0;
+      }
     }
     stack_str_buf(const stack_str_buf &) = default;
     stack_str_buf(stack_str_buf &&) = default;
@@ -307,28 +317,27 @@ protected:
       STR_is_in_stack = STR_is_in_stack_;
 
       if (!STR_is_in_stack_)
-        for (long i{}; i <= stack_buffer_size; i++) { stack_buffer[i] = 0; }
+        for (long i{}; i <= stack_buffer_size; i++) {
+          stack_buffer[i] = 0;
+        }
 
       return STR_is_in_stack;
     }
-    bool get() {
-      return STR_is_in_stack;
-    }
-    virtual ~stack_str_buf() {
-      STR_is_in_stack = 0;
-    }
+    bool get() { return STR_is_in_stack; }
+    virtual ~stack_str_buf() { STR_is_in_stack = 0; }
   };
   mutable stack_str_buf stack_obj_buf;
 
-public:
+ public:
   static constexpr int the_reinterpreted_char_cca_size = 17;
   static constexpr int forbiden_chars_cnt_size = 3;
   static size_t const FLT_MAX_DECIMAL_PLACES = 10;
   static size_t const DBL_MAX_DECIMAL_PLACES = FLT_MAX_DECIMAL_PLACES;
   const static char
-    the_in_reinterpreted_char_cca[the_reinterpreted_char_cca_size];  // just me
+      the_in_reinterpreted_char_cca[the_reinterpreted_char_cca_size];  // just
+                                                                       // me
   const static char
-    the_out_reinterpreted_char_cca[the_reinterpreted_char_cca_size];  // just
+      the_out_reinterpreted_char_cca[the_reinterpreted_char_cca_size];  // just
   // me
   const static char forbiden_chars_cnt[forbiden_chars_cnt_size];
 
@@ -336,9 +345,10 @@ public:
 
   // stream
 
-protected:
- friend void str_helper__op_shift_input_(mjz_Str &rhs, mjz_Str &CIN);
-  // This enumeration provides the lookahead options for parseInt(), // parseFloat() The rules set out here are used until either the first valid
+ protected:
+  friend void str_helper__op_shift_input_(mjz_Str &rhs, mjz_Str &CIN);
+  // This enumeration provides the lookahead options for parseInt(), //
+  // parseFloat() The rules set out here are used until either the first valid
   // character is found or a time out occurs due to lack of input.
   enum LookaheadMode : uint8_t {
     SKIP_ALL,   // All invalid characters are ignored.
@@ -347,12 +357,8 @@ protected:
     SKIP_WHITESPACE  // Only tabs, spaces, line feeds & carriage returns are
     // skipped.
   };
-  long parseInt(char ignore) {
-    return parseInt(SKIP_ALL, ignore);
-  }
-  float parseFloat(char ignore) {
-    return parseFloat(SKIP_ALL, ignore);
-  }
+  long parseInt(char ignore) { return parseInt(SKIP_ALL, ignore); }
+  float parseFloat(char ignore) { return parseFloat(SKIP_ALL, ignore); }
   // These overload exists for compatibility with any class that has derived
   // mjz_Str and used parseFloat/Int with a custom ignore character. To keep
   // the public API simple, these overload remains protected.
@@ -370,27 +376,22 @@ protected:
   size_t printNumber(unsigned long, uint8_t);
   size_t printULLNumber(unsigned long long, uint8_t);
   size_t printFloat(double, int);
-  int timedRead();                                                 // private method to read stream with timeout
-  int timedPeek();                                                 // private method to peek stream with timeout
-  int peekNextDigit(LookaheadMode lookahead, bool detectDecimal);  // returns the next numeric digit in
+  int timedRead();  // private method to read stream with timeout
+  int timedPeek();  // private method to peek stream with timeout
+  int peekNextDigit(LookaheadMode lookahead,
+                    bool detectDecimal);  // returns the next numeric digit in
   // the stream or -1 if timeout
   void setWriteError(int err = 1) if_override_then_override {
     write_error = err;
   }
 
-public:
-  int getWriteError() if_override_then_override {
-    return write_error;
-  }
-  void clearWriteError() if_override_then_override {
-    setWriteError(0);
-  }
+ public:
+  int getWriteError() if_override_then_override { return write_error; }
+  void clearWriteError() if_override_then_override { setWriteError(0); }
 
   // default to zero, meaning "a single write may block"
   // should be overridden by subclasses with buffering
-  virtual int availableForWrite() if_ard_then_override {
-    return 1;
-  }
+  virtual int availableForWrite() if_ard_then_override { return 1; }
 
   size_t print(const __FlashStringHelper *) if_override_then_override;
   size_t print(const char[]) if_override_then_override;
@@ -421,54 +422,53 @@ public:
 
   // parsing methods
 
-  void
-  setTimeout(unsigned long timeout);  // sets maximum milliseconds to wait for
+  void setTimeout(
+      unsigned long timeout);  // sets maximum milliseconds to wait for
   // stream data, default is 1 second
   unsigned long getTimeout(void) {
     return drived_mjz_Str_DATA_storage_Obj_ptr->_timeout;
   }
 
-
-
-
   bool find(const char *target);  // reads data from the stream until the target
   // string is found
-  bool find(const uint8_t *target) {
-    return find((const char *)target);
-  }
+  bool find(const uint8_t *target) { return find((const char *)target); }
   // returns true if target string is found, false if timed out (see setTimeout)
 
-  bool find(const char *target, size_t length);  // reads data from the stream until the target
+  bool find(const char *target,
+            size_t length);  // reads data from the stream until the target
   // string of given length is found
   bool find(const uint8_t *target, size_t length) {
     return find((const char *)target, length);
   }
   // returns true if target string is found, false if timed out
 
-  bool find(char target) {
-    return find(&target, 1);
-  }
+  bool find(char target) { return find(&target, 1); }
 
-  bool findUntil(const char *target, const char *terminator);  // as find but search ends if the
+  bool findUntil(const char *target,
+                 const char *terminator);  // as find but search ends if the
   // terminator string is found
   bool findUntil(const uint8_t *target, const char *terminator) {
     return findUntil((const char *)target, terminator);
   }
 
-  bool findUntil(const char *target, size_t targetLen, const char *terminate, size_t termLen);  // as above but search ends if the terminate
+  bool findUntil(const char *target, size_t targetLen, const char *terminate,
+                 size_t termLen);  // as above but search ends if the terminate
   // string is found
-  bool findUntil(const uint8_t *target, size_t targetLen, const char *terminate, size_t termLen) {
+  bool findUntil(const uint8_t *target, size_t targetLen, const char *terminate,
+                 size_t termLen) {
     return findUntil((const char *)target, targetLen, terminate, termLen);
   }
 
-  long parseInt(LookaheadMode lookahead = SKIP_ALL, char ignore = NO_IGNORE_CHAR);
+  long parseInt(LookaheadMode lookahead = SKIP_ALL,
+                char ignore = NO_IGNORE_CHAR);
   // returns the first valid (long) integer value from the current position.
   // lookahead determines how parseInt looks ahead in the stream.
   // See LookaheadMode enumeration at the top of the file.
   // Lookahead is terminated by the first character that is not a valid part of
   // an integer. Once parsing commences, 'ignore' will be skipped in the stream.
 
-  float parseFloat(LookaheadMode lookahead = SKIP_ALL, char ignore = NO_IGNORE_CHAR);
+  float parseFloat(LookaheadMode lookahead = SKIP_ALL,
+                   char ignore = NO_IGNORE_CHAR);
   // float version of parseInt
 
   // terminates if length characters have been read or timeout (see setTimeout)
@@ -476,8 +476,9 @@ public:
   // data found)
 
   size_t readBytesUntil(char terminator, char *buffer, size_t length)
-    if_override_then_override;  // as readBytes with terminator character
-  size_t readBytesUntil(char terminator, uint8_t *buffer, size_t length) if_override_then_override {
+      if_override_then_override;  // as readBytes with terminator character
+  size_t readBytesUntil(char terminator, uint8_t *buffer,
+                        size_t length) if_override_then_override {
     return readBytesUntil(terminator, (char *)buffer, length);
   }
   // terminates if length characters have been read, timeout, or if the
@@ -491,13 +492,8 @@ public:
   if_virtual_then_virtual size_t write(const char *buf, size_t size_);
   if_virtual_then_virtual size_t write(const char *buf);
   if_virtual_then_virtual size_t write(uint8_t) if_ard_then_override;
-  if_virtual_then_virtual size_t write(const uint8_t *buf,  size_t size_) if_ard_then_override;
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual size_t write(Args_frScnf... args_frScnf) {
-    mjz_Str return_val = mjz_Str(args_frScnf...);
-    return write((const uint8_t *)return_val.c_str(),
-                 (size_t)return_val.length());
-  }
+  if_virtual_then_virtual size_t write(const uint8_t *buf,
+                                       size_t size_) if_ard_then_override;
   if_virtual_then_virtual int available() if_ard_then_override;
   if_virtual_then_virtual int read() if_ard_then_override;
   if_virtual_then_virtual int peek() if_ard_then_override;
@@ -516,26 +512,21 @@ public:
   // stream
   // hash function
   if_virtual_then_virtual hash_sha_512 mjz_hash(uint8_t n = 0) const;
-  if_virtual_then_virtual hash_sha_512 hash() const {
-    return mjz_hash(0);
-  }
+  if_virtual_then_virtual hash_sha_512 hash() const { return mjz_hash(0); }
 
   // new and delete
   static void *operator new(size_t size_);
   static void *operator new[](size_t size_);
   static void operator delete(void *p);
   static void operator delete[](void *ptr);
-  inline static void *operator new(size_t, void *where) {
-    return where;
+  inline static void *operator new(size_t, void *where) { return where; }
+  inline static void operator delete(void *ret_piont, void *where) {
+    delete (mjz_Str *)ret_piont;
   }
-  inline static void operator delete(void * ret_piont, void *where) { 
-  delete (mjz_Str *)ret_piont;
-  }
-
 
   inline static mjz_Str &replace_with_new_str(mjz_Str &where) {
-  // obj.mjz_Str::~mjz_Str();//bad not calling  virtualy 
-  //obj->~mjz_Str();   // good calls the most drived constructor
+    // obj.mjz_Str::~mjz_Str();//bad not calling  virtualy
+    // obj->~mjz_Str();   // good calls the most drived constructor
     where.~mjz_Str();  // end lifetime
     new (&where) mjz_Str;
     return where;
@@ -547,7 +538,7 @@ public:
   }
   // this class is a namespace in this part
   class realloc_new_ns {
-  public:
+   public:
     static void *operator new(size_t size_);
     static void *operator new[](size_t size_);
     static void operator delete(void *p);
@@ -566,23 +557,17 @@ public:
   };
   // easy quality of life
 
-  inline mjz_Str *operator->() {
-    return this;
-  }
-  inline const mjz_Str *operator->() const {
-    return this;
-  }
-  inline mjz_Str &operator*() {
-    return *this;
-  }
-  inline const mjz_Str &operator*() const {
-    return *this;
-  }
+  inline mjz_Str *operator->() { return this; }
+  inline const mjz_Str *operator->() const { return this; }
+  inline mjz_Str &operator*() { return *this; }
+  inline const mjz_Str &operator*() const { return *this; }
 
-  template<typename my_type> inline auto operator->*(my_type my_var) {
+  template <typename my_type>
+  inline auto operator->*(my_type my_var) {
     return this->*my_var;
   }
-  template<typename my_type> inline auto operator->*(my_type my_var) const {
+  template <typename my_type>
+  inline auto operator->*(my_type my_var) const {
     return this->*my_var;
   }
 
@@ -594,15 +579,14 @@ public:
   mjz_Str(const char *cstr);
   mjz_Str(const char *cstr, unsigned int length);
   mjz_Str(const uint8_t *cstr, unsigned int length)
-    : mjz_Str((const char *)cstr, length) {}
+      : mjz_Str((const char *)cstr, length) {}
   mjz_Str(const mjz_Str &str);
   mjz_Str(const __FlashStringHelper *str);
 
   explicit mjz_Str(mjz_Str &&rval);
   // explicit mjz_Str(const mjz_Str *&&rval) : mjz_Str(std::move(*rval)) {
   // }// this will give me headaches in the long run so i dont move it
-  explicit mjz_Str(const mjz_Str *const &rval)
-    : mjz_Str(*rval) {}
+  explicit mjz_Str(const mjz_Str *const &rval) : mjz_Str(*rval) {}
   explicit mjz_Str(char c);
   explicit mjz_Str(unsigned char, unsigned char base = 10);
   explicit mjz_Str(int, unsigned char base = 10);
@@ -613,8 +597,7 @@ public:
   explicit mjz_Str(unsigned long long int, unsigned char base = 10);
   explicit mjz_Str(float, unsigned char decimalPlaces = 2);
   explicit mjz_Str(double, unsigned char decimalPlaces = 2);
-  mjz_Str()
-    : mjz_Str((const char *)empty_STRING_C_STR) {}
+  mjz_Str() : mjz_Str((const char *)empty_STRING_C_STR) {}
 #ifndef Arduino
   if_virtual_then_virtual mjz_Str &operator=(std__string_view_if_is &x) {
     return operator=(std::string(x).c_str());
@@ -636,14 +619,14 @@ public:
   }
 #else
   mjz_Str(std__string_view_if_is &x)
-    : mjz_Str(((x.c_str() != 0) ? (x.c_str())
-                                : ((const char *)empty_STRING_C_STR))) {}
+      : mjz_Str(((x.c_str() != 0) ? (x.c_str())
+                                  : ((const char *)empty_STRING_C_STR))) {}
   mjz_Str(std__string_view_if_is &&x)
-    : mjz_Str(((x.c_str() != 0) ? (x.c_str())
-                                : ((const char *)empty_STRING_C_STR))) {}
+      : mjz_Str(((x.c_str() != 0) ? (x.c_str())
+                                  : ((const char *)empty_STRING_C_STR))) {}
   mjz_Str(const std__string_view_if_is &x)
-    : mjz_Str(((x.c_str() != 0) ? (x.c_str())
-                                : ((const char *)empty_STRING_C_STR))) {}
+      : mjz_Str(((x.c_str() != 0) ? (x.c_str())
+                                  : ((const char *)empty_STRING_C_STR))) {}
   if_virtual_then_virtual mjz_Str &operator=(std__string_view_if_is &x) {
     return operator=(x.c_str());
   }
@@ -664,14 +647,14 @@ public:
   }
 #endif
   mjz_Str(std::string &x)
-    : mjz_Str(((x.c_str() != 0) ? (x.c_str())
-                                : ((const char *)empty_STRING_C_STR))) {}
+      : mjz_Str(((x.c_str() != 0) ? (x.c_str())
+                                  : ((const char *)empty_STRING_C_STR))) {}
   mjz_Str(std::string &&x)
-    : mjz_Str(((x.c_str() != 0) ? (x.c_str())
-                                : ((const char *)empty_STRING_C_STR))) {}
+      : mjz_Str(((x.c_str() != 0) ? (x.c_str())
+                                  : ((const char *)empty_STRING_C_STR))) {}
   mjz_Str(const std::string &x)
-    : mjz_Str(((x.c_str() != 0) ? (x.c_str())
-                                : ((const char *)empty_STRING_C_STR))) {}
+      : mjz_Str(((x.c_str() != 0) ? (x.c_str())
+                                  : ((const char *)empty_STRING_C_STR))) {}
 
   virtual ~mjz_Str(void);  // make all drived destructors called
 
@@ -698,38 +681,15 @@ public:
     return *this;
   };
 
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str &operator-=(Args_frScnf... args_frScnf) {
-    return operator-=(mjz_Str(args_frScnf...));
-  }
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str operator-(Args_frScnf... args_frScnf) {
-    mjz_Str lhs = mjz_Str(*this);
-    return lhs.operator-=(args_frScnf...);
-  }
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str &operator/=(Args_frScnf... args_frScnf) {
-    return operator/=(mjz_Str(args_frScnf...));
-  }
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str operator/(Args_frScnf... args_frScnf) {
-    mjz_Str lhs = mjz_Str(*this);
-    return lhs.operator/=(args_frScnf...);
-  }
-
   // memory management
   // return true on success,false on failure (in which case,the string
   // is left unchanged). reserve(0),if successful,will validate an
   // invalid string (i.e.,"if (s)" will be true afterwards)
-  if_virtual_then_virtual bool reserve(unsigned int size_,bool just_size =0);
-  inline unsigned int length(void) const {
-    return len;
-  }
-  bool addto_length(uint32_t addition_tolen,bool just_size =0) ;
+  if_virtual_then_virtual bool reserve(unsigned int size_, bool just_size = 0);
+  inline unsigned int length(void) const { return len; }
+  bool addto_length(uint32_t addition_tolen, bool just_size = 0);
 
-  if_virtual_then_virtual explicit operator char *() {
-    return buffer_ref();
-  }
+  if_virtual_then_virtual explicit operator char *() { return buffer_ref(); }
   if_virtual_then_virtual explicit operator const uint8_t *() const {
     return (const uint8_t *)buffer_ref();
   }
@@ -764,19 +724,11 @@ public:
   if_virtual_then_virtual explicit operator const bool() const {
     return !is_blank();
   }
-  if_virtual_then_virtual bool operator!() const {
-    return is_blank();
-  }
+  if_virtual_then_virtual bool operator!() const { return is_blank(); }
 
-  if_virtual_then_virtual explicit operator const size_t() const {
-    return len;
-  }
-  if_virtual_then_virtual explicit operator size_t() const {
-    return len;
-  }
-  if_virtual_then_virtual explicit operator size_t &() {
-    return (size_t &)len;
-  }
+  if_virtual_then_virtual explicit operator const size_t() const { return len; }
+  if_virtual_then_virtual explicit operator size_t() const { return len; }
+  if_virtual_then_virtual explicit operator size_t &() { return (size_t &)len; }
   if_virtual_then_virtual explicit operator const long() const {
     return toInt();
   }
@@ -792,8 +744,8 @@ public:
   if_virtual_then_virtual explicit operator std__string_view_if_is() const {
     return std__string_view_if_is((const char *)buffer_ref());
   }
-  if_virtual_then_virtual explicit
-  operator const std__string_view_if_is() const {
+  if_virtual_then_virtual explicit operator const std__string_view_if_is()
+      const {
     return std__string_view_if_is((const char *)buffer_ref());
   }
 
@@ -812,9 +764,7 @@ public:
     return std::move(std::string((const char *)buffer_ref()));
   }
 
-  if_virtual_then_virtual operator const char *() const {
-    return buffer_ref();
-  }
+  if_virtual_then_virtual operator const char *() const { return buffer_ref(); }
   if_virtual_then_virtual char operator[](unsigned int index) const;
   if_virtual_then_virtual char &operator[](unsigned int index);
 
@@ -862,7 +812,6 @@ public:
   // return operator=(std::move(*rval));
   // }// this will give me headaches in the long run so i dont move it
 
-
   // concatenate (works w/ built-in types)
 
   // returns true on success,false on failure (in which case,the string
@@ -871,7 +820,8 @@ public:
   if_virtual_then_virtual bool concat(const mjz_Str &str);
   if_virtual_then_virtual bool concat(const char *cstr);
   if_virtual_then_virtual bool concat(const char *cstr, unsigned int length);
-  if_virtual_then_virtual bool concat(const uint8_t *cstr, unsigned int length) {
+  if_virtual_then_virtual bool concat(const uint8_t *cstr,
+                                      unsigned int length) {
     return concat((const char *)cstr, length);
   }
   if_virtual_then_virtual bool concat(char c);
@@ -909,6 +859,33 @@ public:
   if_virtual_then_virtual mjz_Str &operator<<(mjz_Str *typeing);
   if_virtual_then_virtual mjz_Str &operator<<(const mjz_Str &typeing);
   if_virtual_then_virtual mjz_Str &operator<<(mjz_Str &&typeing);
+  if_virtual_then_virtual mjz_Str &operator<<=(mjz_Str &typeing) {
+    if (&typeing != this) {
+     this->operator=(empty_STRING_C_STR);
+      return operator<<(typeing);
+    }
+    mjz_Str new_temp = typeing;
+    this->operator=(empty_STRING_C_STR);
+    return operator<<(new_temp);
+  }
+  if_virtual_then_virtual mjz_Str &operator<<=(const mjz_Str &typeing) {
+    if (&typeing != this) {
+      this->operator=(empty_STRING_C_STR);
+      return operator<<(typeing);
+    }
+    mjz_Str new_temp = typeing;
+    this->operator=(empty_STRING_C_STR);
+    return operator<<(new_temp);
+  }
+  if_virtual_then_virtual mjz_Str &operator<<=(mjz_Str&&typeing) {
+    if (&typeing != this) {
+      this->operator=(empty_STRING_C_STR);
+      return operator<<(typeing);
+    }
+    mjz_Str new_temp = typeing;
+    this->operator=(empty_STRING_C_STR);
+    return operator<<(new_temp);
+  }
 
   if_virtual_then_virtual mjz_Str &operator>>(char &var) {
     get_s_shift_op_r().scanf("%c", &var);
@@ -925,60 +902,6 @@ public:
   if_virtual_then_virtual mjz_Str &operator>>(float var) {
     var = (float)(get_s_shift_op_r());
     return get_s_shift_op_r();
-  }
-
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str &operator<<(Args_frScnf... args_frScnf) {
-    return operator<<(mjz_Str(args_frScnf...));
-  }
-
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str &operator<<=(Args_frScnf... args_frScnf) {
-    this->operator=(empty_STRING_C_STR);
-    return operator<<(args_frScnf...);
-  }
-
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str &operator=(Args_frScnf... args_frScnf) {
-    return operator=(mjz_Str(args_frScnf...));
-  }
-  template<typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str &operator+=(Args_frScnf... args_frScnf) {
-    return operator+=(mjz_Str(args_frScnf...));
-  }
-
-  template<typename your_FUNCTION_Type, typename... Args_frScnf>
-  if_virtual_then_virtual mjz_Str &run_code(your_FUNCTION_Type your__function_, Args_frScnf... args_frScnf) {
-    your__function_(this, args_frScnf...);
-    return *this;
-  }
-  template<typename your_FUNCTION_Type, typename... Args_frScnf>
-  if_virtual_then_virtual const mjz_Str &
-  run_code(your_FUNCTION_Type your__function_, Args_frScnf... args_frScnf) const {
-    your__function_(this, args_frScnf...);
-    return *this;
-  }
-
-  template<typename your_FUNCTION_Type, typename... Args_frScnf>
-  if_virtual_then_virtual auto
-  run_code_and_return(your_FUNCTION_Type your__function_, Args_frScnf... args_frScnf) {
-    return your__function_(this, args_frScnf...);
-  }
-  template<typename your_FUNCTION_Type, typename... Args_frScnf>
-  if_virtual_then_virtual auto
-  run_code_and_return(your_FUNCTION_Type your__function_, Args_frScnf... args_frScnf) const {
-    return your__function_(this, args_frScnf...);
-  }
-
-  // ret( (gets a lambda / function pointer / std::function with ret(mjz_Str *
-  // , ... something)),...something)
-  template<typename your_FUNCTION_Type, typename... Args_frScnf>
-  if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_, Args_frScnf... args_frScnf) {
-    return your__function_(this, args_frScnf...);
-  }
-  template<typename your_FUNCTION_Type, typename... Args_frScnf>
-  if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_, Args_frScnf... args_frScnf) const {
-    return your__function_(this, args_frScnf...);
   }
 
   // if there's not enough memory for the concatenated value,the string
@@ -1036,19 +959,26 @@ public:
     return (*this);
   }
 
-  friend StringSumHelper &operator+(const StringSumHelper &lhs, const mjz_Str &rhs);
-  friend StringSumHelper &operator+(const StringSumHelper &lhs, const char *cstr);
+  friend StringSumHelper &operator+(const StringSumHelper &lhs,
+                                    const mjz_Str &rhs);
+  friend StringSumHelper &operator+(const StringSumHelper &lhs,
+                                    const char *cstr);
   friend StringSumHelper &operator+(const StringSumHelper &lhs, char c);
-  friend StringSumHelper &operator+(const StringSumHelper &lhs, unsigned char num);
+  friend StringSumHelper &operator+(const StringSumHelper &lhs,
+                                    unsigned char num);
   friend StringSumHelper &operator+(const StringSumHelper &lhs, int num);
-  friend StringSumHelper &operator+(const StringSumHelper &lhs, unsigned int num);
+  friend StringSumHelper &operator+(const StringSumHelper &lhs,
+                                    unsigned int num);
   friend StringSumHelper &operator+(const StringSumHelper &lhs, long num);
-  friend StringSumHelper &operator+(const StringSumHelper &lhs, unsigned long num);
+  friend StringSumHelper &operator+(const StringSumHelper &lhs,
+                                    unsigned long num);
   friend StringSumHelper &operator+(const StringSumHelper &lhs, long long num);
-  friend StringSumHelper &operator+(const StringSumHelper &lhs, unsigned long long num);
+  friend StringSumHelper &operator+(const StringSumHelper &lhs,
+                                    unsigned long long num);
   friend StringSumHelper &operator+(const StringSumHelper &lhs, float num);
   friend StringSumHelper &operator+(const StringSumHelper &lhs, double num);
-  friend StringSumHelper &operator+(const StringSumHelper &lhs, const __FlashStringHelper *rhs);
+  friend StringSumHelper &operator+(const StringSumHelper &lhs,
+                                    const __FlashStringHelper *rhs);
 
   typedef void *(*function_ptr)(const mjz_Str &, void *);
 
@@ -1061,39 +991,44 @@ public:
   if_virtual_then_virtual int compareTo(const char *cstr) const;
   if_virtual_then_virtual bool equals(const mjz_Str &s) const;
   if_virtual_then_virtual bool equals(const char *cstr) const;
-  if_virtual_then_virtual unsigned long UN_ORDERED_compare(const char *s, unsigned int s_len) const;
-  if_virtual_then_virtual unsigned long UN_ORDERED_compare(const mjz_Str &s) const;
+  if_virtual_then_virtual unsigned long UN_ORDERED_compare(
+      const char *s, unsigned int s_len) const;
+  if_virtual_then_virtual unsigned long UN_ORDERED_compare(
+      const mjz_Str &s) const;
 
   friend bool is_blank_characteres_default(char);
   friend char char_to_char_for_reinterpret_fnc_ptr_default(char);
   friend bool is_forbiden_character_default(char);
 
-  if_virtual_then_virtual void
-  change_is_blank_character_function(std::function<bool(char)> fnction) {
+  if_virtual_then_virtual void change_is_blank_character_function(
+      std::function<bool(char)> fnction) {
     if (fnction) {
       drived_mjz_Str_DATA_storage_Obj_ptr_set()->is_blank_character = fnction;
     }
   }
   if_virtual_then_virtual void
   change_char_to_char_for_reinterpret_fnc_ptr_function(
-    std::function<char(char)> fnction) {
+      std::function<char(char)> fnction) {
     if (fnction) {
-      drived_mjz_Str_DATA_storage_Obj_ptr_set()->char_to_char_for_reinterpret_fnc_ptr = fnction;
+      drived_mjz_Str_DATA_storage_Obj_ptr_set()
+          ->char_to_char_for_reinterpret_fnc_ptr = fnction;
     }
   }
-  if_virtual_then_virtual void
-  change_is_forbiden_character_function(std::function<bool(char)> fnction) {
+  if_virtual_then_virtual void change_is_forbiden_character_function(
+      std::function<bool(char)> fnction) {
     if (fnction) {
-      drived_mjz_Str_DATA_storage_Obj_ptr_set()->is_forbiden_character = fnction;
+      drived_mjz_Str_DATA_storage_Obj_ptr_set()->is_forbiden_character =
+          fnction;
     }
   }
 
   inline const std::function<bool(char)> &get_is_blank_character_function() {
     return drived_mjz_Str_DATA_storage_Obj_ptr->is_blank_character;
   }
-  inline const std::function<char(char)> &
-  get_char_to_char_for_reinterpret_fnc_ptr_function() {
-    return drived_mjz_Str_DATA_storage_Obj_ptr->char_to_char_for_reinterpret_fnc_ptr;
+  inline const std::function<char(char)>
+      &get_char_to_char_for_reinterpret_fnc_ptr_function() {
+    return drived_mjz_Str_DATA_storage_Obj_ptr
+        ->char_to_char_for_reinterpret_fnc_ptr;
   }
   inline const std::function<bool(char)> &get_is_forbiden_character_function() {
     return drived_mjz_Str_DATA_storage_Obj_ptr->is_forbiden_character;
@@ -1107,15 +1042,19 @@ public:
   if_virtual_then_virtual bool char_to_char_for_reinterpret(char &c_char) const;
 
   static if_virtual_then_virtual int8_t char_to_int_for_string(char c_char);
-  friend std::istream &helper__op_shift_input_(const mjz_Str &rhs, std::istream &CIN, mjz_Str &get_shift_op_s);
+  friend std::istream &helper__op_shift_input_(const mjz_Str &rhs,
+                                               std::istream &CIN,
+                                               mjz_Str &get_shift_op_s);
   static mjz_Str create_mjz_Str_char_array(uint32_t size_, char filler = 0,
                                            bool do_fill = 1);
   static mjz_Str create_mjz_Str_2D_char_array(uint32_t size_col,
                                               uint32_t size_row,
                                               char filler = 0,
-                                           bool do_fill = 1);
+                                              bool do_fill = 1);
 
-  friend const mjz_Str &helper__op_shift_input_(const mjz_Str &rhs, const mjz_Str &CIN, mjz_Str &get_shift_op_s);
+  friend const mjz_Str &helper__op_shift_input_(const mjz_Str &rhs,
+                                                const mjz_Str &CIN,
+                                                mjz_Str &get_shift_op_s);
 
   friend std::istream &operator<<(mjz_Str &rhs, std::istream &CIN) {
     return helper__op_shift_input_(rhs, CIN, rhs.get_s_shift_op_l_s());
@@ -1157,9 +1096,7 @@ public:
   friend bool operator==(const mjz_Str &a, const char *b) {
     return a.equals(b);
   }
-  friend bool operator==(const char *a, const mjz_Str &b) {
-    return b == a;
-  }
+  friend bool operator==(const char *a, const mjz_Str &b) { return b == a; }
   friend bool operator<(const mjz_Str &a, const mjz_Str &b) {
     return a.compareTo(b) < 0;
   }
@@ -1173,44 +1110,27 @@ public:
   friend bool operator!=(const mjz_Str &a, const mjz_Str &b) {
     return !(a == b);
   }
-  friend bool operator!=(const mjz_Str &a, const char *b) {
-    return !(a == b);
-  }
-  friend bool operator!=(const char *a, const mjz_Str &b) {
-    return !(a == b);
-  }
-  friend bool operator>(const mjz_Str &a, const mjz_Str &b) {
-    return b < a;
-  }
-  friend bool operator>(const mjz_Str &a, const char *b) {
-    return b < a;
-  }
-  friend bool operator>(const char *a, const mjz_Str &b) {
-    return b < a;
-  }
+  friend bool operator!=(const mjz_Str &a, const char *b) { return !(a == b); }
+  friend bool operator!=(const char *a, const mjz_Str &b) { return !(a == b); }
+  friend bool operator>(const mjz_Str &a, const mjz_Str &b) { return b < a; }
+  friend bool operator>(const mjz_Str &a, const char *b) { return b < a; }
+  friend bool operator>(const char *a, const mjz_Str &b) { return b < a; }
   friend bool operator<=(const mjz_Str &a, const mjz_Str &b) {
     return !(b < a);
   }
-  friend bool operator<=(const mjz_Str &a, const char *b) {
-    return !(b < a);
-  }
-  friend bool operator<=(const char *a, const mjz_Str &b) {
-    return !(b < a);
-  }
+  friend bool operator<=(const mjz_Str &a, const char *b) { return !(b < a); }
+  friend bool operator<=(const char *a, const mjz_Str &b) { return !(b < a); }
   friend bool operator>=(const mjz_Str &a, const mjz_Str &b) {
     return !(a < b);
   }
-  friend bool operator>=(const mjz_Str &a, const char *b) {
-    return !(a < b);
-  }
-  friend bool operator>=(const char *a, const mjz_Str &b) {
-    return !(a < b);
-  }
+  friend bool operator>=(const mjz_Str &a, const char *b) { return !(a < b); }
+  friend bool operator>=(const char *a, const mjz_Str &b) { return !(a < b); }
   friend class STRINGSerial;
 
   if_virtual_then_virtual bool equalsIgnoreCase(const mjz_Str &s) const;
   if_virtual_then_virtual bool startsWith(const mjz_Str &prefix) const;
-  if_virtual_then_virtual bool startsWith(const mjz_Str &prefix, unsigned int offset) const;
+  if_virtual_then_virtual bool startsWith(const mjz_Str &prefix,
+                                          unsigned int offset) const;
   if_virtual_then_virtual bool endsWith(const mjz_Str &suffix) const;
 
   // character access
@@ -1221,9 +1141,11 @@ public:
   if_virtual_then_virtual char charAt(int index) const;
   if_virtual_then_virtual void setCharAt(int index, char c);
 
-  if_virtual_then_virtual void getBytes(unsigned char *buf, unsigned int bufsize, unsigned int index = 0) const;
-  inline if_virtual_then_virtual void
-  toCharArray(char *buf, unsigned int bufsize, unsigned int index = 0) const {
+  if_virtual_then_virtual void getBytes(unsigned char *buf,
+                                        unsigned int bufsize,
+                                        unsigned int index = 0) const;
+  inline if_virtual_then_virtual void toCharArray(
+      char *buf, unsigned int bufsize, unsigned int index = 0) const {
     getBytes((unsigned char *)buf, bufsize, index);
   }
   inline if_virtual_then_virtual char *&buffer_ref();
@@ -1234,29 +1156,19 @@ public:
     return buffer_ref();
   }
 
-  inline if_virtual_then_virtual const char *c_str() {
-    return buffer_ref();
-  }
-   inline if_virtual_then_virtual const char *C_str() const {
-    return buffer_ref();
-  }
-
-  inline if_virtual_then_virtual  char *C_str() {
+  inline if_virtual_then_virtual const char *c_str() { return buffer_ref(); }
+  inline if_virtual_then_virtual const char *C_str() const {
     return buffer_ref();
   }
 
-  inline if_virtual_then_virtual char *begin_c_str() {
-    return buffer_ref();
-  }
-  if_virtual_then_virtual char *end_c_str() {
-    return buffer_ref() + length();
-  }
+  inline if_virtual_then_virtual char *C_str() { return buffer_ref(); }
+
+  inline if_virtual_then_virtual char *begin_c_str() { return buffer_ref(); }
+  if_virtual_then_virtual char *end_c_str() { return buffer_ref() + length(); }
   if_virtual_then_virtual char *endAST_c_str() {
     return buffer_ref() + length();
   }
-  if_virtual_then_virtual const char *begin_c_str() const {
-    return c_str();
-  }
+  if_virtual_then_virtual const char *begin_c_str() const { return c_str(); }
   if_virtual_then_virtual const char *endAST_c_str() const {
     return c_str() + length();
   }
@@ -1265,16 +1177,15 @@ public:
   }
 
   // Function that return the length
-  long long size() const {
-    return length();
-  }
+  long long size() const { return length(); }
 
   // iterator_template Class
-  template<typename Type> class iterator_template {
-  protected:
+  template <typename Type>
+  class iterator_template {
+   protected:
     Type *m_iterator;
 
-  public:
+   public:
     using value_type = Type;
     using reference = value_type &;
     using pointer = value_type *;
@@ -1282,13 +1193,10 @@ public:
     using difference_type = std::ptrdiff_t;
     // using iterator_concept = std::contiguous_iterator_tag;
 
-    iterator_template(Type *iter = nullptr)
-      : m_iterator{ iter } {}
+    iterator_template(Type *iter = nullptr) : m_iterator{iter} {}
 
-    iterator_template(const iterator_template &p)
-      : m_iterator(p.m_iterator) {}
-    iterator_template(iterator_template &&p)
-      : m_iterator(p.m_iterator) {}
+    iterator_template(const iterator_template &p) : m_iterator(p.m_iterator) {}
+    iterator_template(iterator_template &&p) : m_iterator(p.m_iterator) {}
     iterator_template &operator=(Type *iter) {
       m_iterator = iter;
       return *this;
@@ -1301,9 +1209,7 @@ public:
       m_iterator = (p.m_iterator);
       return *this;
     }
-    ~iterator_template() {
-      m_iterator = 0;
-    }
+    ~iterator_template() { m_iterator = 0; }
 
     bool operator==(const iterator_template &other) const noexcept {
       return m_iterator == other.m_iterator;
@@ -1311,12 +1217,8 @@ public:
     bool operator!=(const iterator_template &other) const noexcept {
       return m_iterator != other.m_iterator;
     }
-    reference operator*() const noexcept {
-      return *m_iterator;
-    }
-    pointer operator->() const noexcept {
-      return m_iterator;
-    }
+    reference operator*() const noexcept { return *m_iterator; }
+    pointer operator->() const noexcept { return m_iterator; }
     iterator_template &operator++() noexcept {
       ++m_iterator;
       return *this;
@@ -1343,17 +1245,15 @@ public:
       m_iterator -= other;
       return *this;
     }
-    iterator_template &operator+=(const iterator_template& other) noexcept {
+    iterator_template &operator+=(const iterator_template &other) noexcept {
       m_iterator += other.m_iterator;
       return *this;
     }
-    iterator_template &operator-=(const iterator_template& other) noexcept {
+    iterator_template &operator-=(const iterator_template &other) noexcept {
       m_iterator -= other.m_iterator;
       return *this;
     }
-    reference operator[](std::size_t index) const {
-      return m_iterator[index];
-    }
+    reference operator[](std::size_t index) const { return m_iterator[index]; }
     bool operator<(const iterator_template &other) const noexcept {
       return m_iterator < other.m_iterator;
     }
@@ -1366,42 +1266,36 @@ public:
     bool operator>=(const iterator_template &other) const noexcept {
       return m_iterator >= other.m_iterator;
     }
-    operator pointer() {
-      return m_iterator;
-    }
-    explicit operator pointer &() {
-      return m_iterator;
-    }
+    operator pointer() { return m_iterator; }
+    explicit operator pointer &() { return m_iterator; }
 
+    pointer get_pointer() const { return m_iterator; }
+    pointer &get_pointer() { return m_iterator; }
 
-    pointer get_pointer() const {
-      return m_iterator;
-    }
-    pointer &get_pointer() {
-      return m_iterator;
-    }
-
-    
-  friend  iterator_template  operator+(const iterator_template& me,const difference_type other)  noexcept {
+    friend iterator_template operator+(const iterator_template &me,
+                                       const difference_type other) noexcept {
       return iterator_template(me.m_iterator + other);
     }
-  friend  iterator_template  operator-(const iterator_template& me,const difference_type other)  noexcept {
+    friend iterator_template operator-(const iterator_template &me,
+                                       const difference_type other) noexcept {
       return iterator_template(me.m_iterator - other);
     }
-    friend iterator_template operator+(const difference_type other,const iterator_template& me)  noexcept {
+    friend iterator_template operator+(const difference_type other,
+                                       const iterator_template &me) noexcept {
       return iterator_template(other + me.m_iterator);
     }
-  // friend iterator_template operator-(const difference_type other, const iterator_template& me)  noexcept {// bad function dont use
-  //   return iterator_template(me.m_iterator - (pointer)other);   
-  //  }
-    friend iterator_template operator+(const iterator_template &other, const iterator_template& me)  noexcept {
+    // friend iterator_template operator-(const difference_type other, const
+    // iterator_template& me)  noexcept {// bad function dont use
+    //   return iterator_template(me.m_iterator - (pointer)other);
+    //  }
+    friend iterator_template operator+(const iterator_template &other,
+                                       const iterator_template &me) noexcept {
       return iterator_template(other.m_iterator + me);
     }
-    friend difference_type  operator-(const iterator_template &other, const iterator_template& me)  noexcept {
+    friend difference_type operator-(const iterator_template &other,
+                                     const iterator_template &me) noexcept {
       return std::distance(other.m_iterator, me.m_iterator);
     }
-
-
 
     friend void swap(iterator_template &lhs, iterator_template &rhs) {
       iterator_template lhsm_iterator = lhs;
@@ -1439,8 +1333,8 @@ public:
       return *this;
     }
     const_iterator &operator=(iterator_template_CC p) {
-      m_iterator = p.get_pointer(); // there is a error if i want  to access it directly 
-      return *this;
+      m_iterator = p.get_pointer(); // there is a error if i want  to access it
+  directly return *this;
     }
     const_iterator &operator=(const const_iterator &p) {
       m_iterator = (p.m_iterator);
@@ -1477,9 +1371,9 @@ public:
       return *this;
     }
     iterator &operator=(iterator_template_C p) {
-     
-      m_iterator = p.get_pointer(); // there is a error if i want  to access it directly 
-      return *this;
+
+      m_iterator = p.get_pointer(); // there is a error if i want  to access it
+  directly return *this;
     }
     iterator &operator=(iterator &&p) {
       m_iterator = (p.m_iterator);
@@ -1504,51 +1398,40 @@ public:
     }
   };
 */
-  const_iterator begin() const {
-    return const_iterator(begin_c_str());
-  }
-  const_iterator end() const {
-    return const_iterator(end_c_str());
-  }
-  iterator begin() {
-    return iterator(begin_c_str());
-  }
-  iterator end() {
-    return iterator(end_c_str());
-  }
+  const_iterator begin() const { return const_iterator(begin_c_str()); }
+  const_iterator end() const { return const_iterator(end_c_str()); }
+  iterator begin() { return iterator(begin_c_str()); }
+  iterator end() { return iterator(end_c_str()); }
   typedef std::reverse_iterator<iterator> rev_iterator;
   typedef std::reverse_iterator<const_iterator> const_rev_iterator;
 
-  rev_iterator rbegin() {
-    return rev_iterator(end());
-  }
-  const_rev_iterator rbegin() const {
-    return const_rev_iterator(end());
-  };
-  rev_iterator rend() {
-    return rev_iterator(begin());
-  }
-  const_rev_iterator rend() const {
-    return const_rev_iterator(begin());
-  };
+  rev_iterator rbegin() { return rev_iterator(end()); }
+  const_rev_iterator rbegin() const { return const_rev_iterator(end()); };
+  rev_iterator rend() { return rev_iterator(begin()); }
+  const_rev_iterator rend() const { return const_rev_iterator(begin()); };
 
   // search
   if_virtual_then_virtual int indexOf(char ch) const;
   if_virtual_then_virtual int indexOf(char ch, unsigned int fromIndex) const;
   if_virtual_then_virtual int indexOf(const mjz_Str &str) const;
-  if_virtual_then_virtual int indexOf(const mjz_Str &str, unsigned int fromIndex) const;
+  if_virtual_then_virtual int indexOf(const mjz_Str &str,
+                                      unsigned int fromIndex) const;
   if_virtual_then_virtual int lastIndexOf(char ch) const;
-  if_virtual_then_virtual int lastIndexOf(char ch, unsigned int fromIndex) const;
+  if_virtual_then_virtual int lastIndexOf(char ch,
+                                          unsigned int fromIndex) const;
   if_virtual_then_virtual int lastIndexOf(const mjz_Str &str) const;
-  if_virtual_then_virtual int lastIndexOf(const mjz_Str &str, unsigned int fromIndex) const;
+  if_virtual_then_virtual int lastIndexOf(const mjz_Str &str,
+                                          unsigned int fromIndex) const;
   if_virtual_then_virtual mjz_Str substring(unsigned int beginIndex) const {
     return substring(beginIndex, len);
   };
-  if_virtual_then_virtual mjz_Str substring(unsigned int beginIndex, unsigned int endIndex) const;
+  if_virtual_then_virtual mjz_Str substring(unsigned int beginIndex,
+                                            unsigned int endIndex) const;
 
   // modification
   if_virtual_then_virtual void replace(char find, char replace);
-  if_virtual_then_virtual void replace(const mjz_Str &find, const mjz_Str &replace);
+  if_virtual_then_virtual void replace(const mjz_Str &find,
+                                       const mjz_Str &replace);
   if_virtual_then_virtual void remove(unsigned int index);
   if_virtual_then_virtual void remove(unsigned int index, unsigned int count);
   if_virtual_then_virtual void toLowerCase(void);
@@ -1560,35 +1443,24 @@ public:
   if_virtual_then_virtual float toFloat(void) const;
   if_virtual_then_virtual double toDouble(void) const;
   if_virtual_then_virtual long long toLL(void) const;
-  if_virtual_then_virtual long long to_LL(int radix = 10, bool *had_error = 0, uint8_t error_level = 0) const;
-
- 
+  if_virtual_then_virtual long long to_LL(int radix = 10, bool *had_error = 0,
+                                          uint8_t error_level = 0) const;
 
   if_virtual_then_virtual mjz_Str string_do_interpret();
   if_virtual_then_virtual void string_do_interpret(mjz_Str &instr);
-  template<typename... Args_frScnf>
-  int scanf(const char *format, Args_frScnf... args_frScnf) {
-    int ret = sprintf_alt_((char *)buffer_ref(), (size_t)length(), format,
-                           args_frScnf...);
-    return ret;
-  }
-  template<typename... Args_frScnf>
-  int scanf(const mjz_Str &format, Args_frScnf... args_frScnf) {
-    int ret = sprintf_alt_((char *)buffer_ref(), length(),
-                           format.buffer_ref(),
-                           args_frScnf...);
-    return ret;
-  }
 
-  mjz_Str &ULL_LL_to_str_add(uint64_t value, int radix, bool is_signed, bool force_neg = 0);
-  mjz_Str &ULL_LL_to_str_rep(uint64_t value, int radix, bool is_signed, bool force_neg = 0);
+  mjz_Str &ULL_LL_to_str_add(uint64_t value, int radix, bool is_signed,
+                             bool force_neg = 0);
+  mjz_Str &ULL_LL_to_str_rep(uint64_t value, int radix, bool is_signed,
+                             bool force_neg = 0);
 
   friend void swap(mjz_Str &lhs, mjz_Str &rhs) {
     mjz_Str lhs_buffer(lhs);
     lhs = std::move(rhs);
     rhs = std::move(lhs_buffer);
   }
-protected:
+
+ protected:
   if_virtual_then_virtual void update_event();
   if_virtual_then_virtual void update_event_ard_string();
 
@@ -1618,63 +1490,332 @@ protected:
 
   // copy and move
   if_virtual_then_virtual mjz_Str &copy(const char *cstr, unsigned int length);
-  if_virtual_then_virtual mjz_Str &copy(const __FlashStringHelper *pstr, unsigned int length);
+  if_virtual_then_virtual mjz_Str &copy(const __FlashStringHelper *pstr,
+                                        unsigned int length);
 
   if_virtual_then_virtual void move(mjz_Str &rhs);
+
+ public:
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual size_t write(Args_frScnf &...args_frScnf) {
+    mjz_Str return_val = mjz_Str(args_frScnf...);
+    return write((const uint8_t *)return_val.c_str(),
+                 (size_t)return_val.length());
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual size_t write(const Args_frScnf &...args_frScnf) {
+    mjz_Str return_val = mjz_Str(args_frScnf...);
+    return write((const uint8_t *)return_val.c_str(),
+                 (size_t)return_val.length());
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual size_t write(Args_frScnf &&...args_frScnf) {
+    mjz_Str return_val = mjz_Str(args_frScnf...);
+    return write((const uint8_t *)return_val.c_str(),
+                 (size_t)return_val.length());
+  }
+
+  template <typename... Args_frScnf>
+  int scanf(const char *format, Args_frScnf &...args_frScnf) {
+    int ret = sprintf_alt_((char *)buffer_ref(), (size_t)length(), format,
+                           args_frScnf...);
+    return ret;
+  }
+  template <typename... Args_frScnf>
+  int scanf(const mjz_Str &format, Args_frScnf &...args_frScnf) {
+    int ret = sprintf_alt_((char *)buffer_ref(), length(), format.buffer_ref(),
+                           args_frScnf...);
+    return ret;
+  }
+  template <typename... Args_frScnf>
+  int scanf(const char *format, const Args_frScnf &...args_frScnf) {
+    int ret = sprintf_alt_((char *)buffer_ref(), (size_t)length(), format,
+                           args_frScnf...);
+    return ret;
+  }
+  template <typename... Args_frScnf>
+  int scanf(const mjz_Str &format, const Args_frScnf &...args_frScnf) {
+    int ret = sprintf_alt_((char *)buffer_ref(), length(), format.buffer_ref(),
+                           args_frScnf...);
+    return ret;
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator-=(Args_frScnf &...args_frScnf) {
+    return operator-=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str operator-(Args_frScnf &...args_frScnf) {
+    mjz_Str lhs = mjz_Str(*this);
+    return lhs.operator-=(args_frScnf...);
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator/=(Args_frScnf &...args_frScnf) {
+    return operator/=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str operator/(Args_frScnf &...args_frScnf) {
+    mjz_Str lhs = mjz_Str(*this);
+    return lhs.operator/=(args_frScnf...);
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator-=(
+      const Args_frScnf &...args_frScnf) {
+    return operator-=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str operator-(const Args_frScnf &...args_frScnf) {
+    mjz_Str lhs = mjz_Str(*this);
+    return lhs.operator-=(args_frScnf...);
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator/=(
+      const Args_frScnf &...args_frScnf) {
+    return operator/=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str operator/(const Args_frScnf &...args_frScnf) {
+    mjz_Str lhs = mjz_Str(*this);
+    return lhs.operator/=(args_frScnf...);
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator-=(Args_frScnf &&...args_frScnf) {
+    return operator-=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str operator-(Args_frScnf &&...args_frScnf) {
+    mjz_Str lhs = mjz_Str(*this);
+    return lhs.operator-=(args_frScnf...);
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator/=(Args_frScnf &&...args_frScnf) {
+    return operator/=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str operator/(Args_frScnf &&...args_frScnf) {
+    mjz_Str lhs = mjz_Str(*this);
+    return lhs.operator/=(args_frScnf...);
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator<<(Args_frScnf &...args_frScnf) {
+    return operator<<(mjz_Str(args_frScnf...));
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator<<=(Args_frScnf &...args_frScnf) {
+    this->operator=(empty_STRING_C_STR);
+    return operator<<(mjz_Str(args_frScnf...));
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator=(Args_frScnf &...args_frScnf) {
+    return operator=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator+=(Args_frScnf &...args_frScnf) {
+    return operator+=(mjz_Str(args_frScnf...));
+  }
+
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &run_code(your_FUNCTION_Type your__function_,
+                                            Args_frScnf &...args_frScnf) {
+    your__function_(this, args_frScnf...);
+    return *this;
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual const mjz_Str &run_code(
+      your_FUNCTION_Type your__function_, Args_frScnf &...args_frScnf) const {
+    your__function_(this, args_frScnf...);
+    return *this;
+  }
+
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto run_code_and_return(
+      your_FUNCTION_Type your__function_, Args_frScnf &...args_frScnf) {
+    return your__function_(this, args_frScnf...);
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto run_code_and_return(
+      your_FUNCTION_Type your__function_, Args_frScnf &...args_frScnf) const {
+    return your__function_(this, args_frScnf...);
+  }
+
+  // ret( (gets a lambda / function pointer / std::function with ret(mjz_Str *
+  // , ... something)),...something)
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_,
+                                          Args_frScnf &...args_frScnf) {
+    return your__function_(this, args_frScnf...);
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_,
+                                          Args_frScnf &...args_frScnf) const {
+    return your__function_(this, args_frScnf...);
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator<<(
+      const Args_frScnf &...args_frScnf) {
+    return operator<<(mjz_Str(args_frScnf...));
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator<<=(
+      const Args_frScnf &...args_frScnf) {
+    this->operator=(empty_STRING_C_STR);
+    return operator<<(mjz_Str(args_frScnf...));
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator=(
+      const Args_frScnf &...args_frScnf) {
+    return operator=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator+=(
+      const Args_frScnf &...args_frScnf) {
+    return operator+=(mjz_Str(args_frScnf...));
+  }
+
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &run_code(your_FUNCTION_Type your__function_,
+                                            const Args_frScnf &...args_frScnf) {
+    your__function_(this, args_frScnf...);
+    return *this;
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual const mjz_Str &run_code(
+      your_FUNCTION_Type your__function_,
+      const Args_frScnf &...args_frScnf) const {
+    your__function_(this, args_frScnf...);
+    return *this;
+  }
+
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto run_code_and_return(
+      your_FUNCTION_Type your__function_, const Args_frScnf &...args_frScnf) {
+    return your__function_(this, args_frScnf...);
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto run_code_and_return(
+      your_FUNCTION_Type your__function_,
+      const Args_frScnf &...args_frScnf) const {
+    return your__function_(this, args_frScnf...);
+  }
+
+  // ret( (gets a lambda / function pointer / std::function with ret(mjz_Str *
+  // , ... something)),...something)
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_,
+                                          const Args_frScnf &...args_frScnf) {
+    return your__function_(this, args_frScnf...);
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto operator()(
+      your_FUNCTION_Type your__function_,
+      const Args_frScnf &...args_frScnf) const {
+    return your__function_(this, args_frScnf...);
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator<<(Args_frScnf &&...args_frScnf) {
+    return operator<<(mjz_Str(args_frScnf...));
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator<<=(Args_frScnf &&...args_frScnf) {
+    this->operator=(empty_STRING_C_STR);
+    return operator<<(mjz_Str(args_frScnf...));
+  }
+
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator=(Args_frScnf &&...args_frScnf) {
+    return operator=(mjz_Str(args_frScnf...));
+  }
+  template <typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &operator+=(Args_frScnf &&...args_frScnf) {
+    return operator+=(mjz_Str(args_frScnf...));
+  }
+
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual mjz_Str &run_code(your_FUNCTION_Type your__function_,
+                                            Args_frScnf &&...args_frScnf) {
+    your__function_(this, args_frScnf...);
+    return *this;
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual const mjz_Str &run_code(
+      your_FUNCTION_Type your__function_, Args_frScnf &&...args_frScnf) const {
+    your__function_(this, args_frScnf...);
+    return *this;
+  }
+
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto run_code_and_return(
+      your_FUNCTION_Type your__function_, Args_frScnf &&...args_frScnf) {
+    return your__function_(this, args_frScnf...);
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto run_code_and_return(
+      your_FUNCTION_Type your__function_, Args_frScnf &&...args_frScnf) const {
+    return your__function_(this, args_frScnf...);
+  }
+
+  // ret( (gets a lambda / function pointer / std::function with ret(mjz_Str *
+  // , ... something)),...something)
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_,
+                                          Args_frScnf &&...args_frScnf) {
+    return your__function_(this, args_frScnf...);
+  }
+  template <typename your_FUNCTION_Type, typename... Args_frScnf>
+  if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_,
+                                          Args_frScnf &&...args_frScnf) const {
+    return your__function_(this, args_frScnf...);
+  }
 };
 class StringSumHelper : public mjz_Str {
-public:
-  StringSumHelper(const mjz_Str &s)
-    : mjz_Str(s) {}
-  StringSumHelper(const char *p)
-    : mjz_Str(p) {}
-  StringSumHelper(char c)
-    : mjz_Str(c) {}
-  StringSumHelper(unsigned char num)
-    : mjz_Str(num) {}
-  StringSumHelper(int num)
-    : mjz_Str(num) {}
-  StringSumHelper(unsigned int num)
-    : mjz_Str(num) {}
-  StringSumHelper(long num)
-    : mjz_Str(num) {}
-  StringSumHelper(unsigned long num)
-    : mjz_Str(num) {}
-  StringSumHelper(long long num)
-    : mjz_Str(num) {}
-  StringSumHelper(unsigned long long num)
-    : mjz_Str(num) {}
-  StringSumHelper(float num)
-    : mjz_Str(num) {}
-  StringSumHelper(double num)
-    : mjz_Str(num) {}
+ public:
+  StringSumHelper(const mjz_Str &s) : mjz_Str(s) {}
+  StringSumHelper(const char *p) : mjz_Str(p) {}
+  StringSumHelper(char c) : mjz_Str(c) {}
+  StringSumHelper(unsigned char num) : mjz_Str(num) {}
+  StringSumHelper(int num) : mjz_Str(num) {}
+  StringSumHelper(unsigned int num) : mjz_Str(num) {}
+  StringSumHelper(long num) : mjz_Str(num) {}
+  StringSumHelper(unsigned long num) : mjz_Str(num) {}
+  StringSumHelper(long long num) : mjz_Str(num) {}
+  StringSumHelper(unsigned long long num) : mjz_Str(num) {}
+  StringSumHelper(float num) : mjz_Str(num) {}
+  StringSumHelper(double num) : mjz_Str(num) {}
   virtual ~StringSumHelper(){};
 };
-template<typename TYPE_>
+template <typename TYPE_>
 class type_cmp_class {
-public:
-  bool operator()(const TYPE_ &a, const TYPE_ &b) {
-    return cmp(a, b);
-  }
-  bool cmp(const TYPE_ &a, const TYPE_ &b) {
-    return a < b;
-  }
+ public:
+  bool operator()(const TYPE_ &a, const TYPE_ &b) { return cmp(a, b); }
+  bool cmp(const TYPE_ &a, const TYPE_ &b) { return a < b; }
 };
-template<typename TYPE_, class cmpr_function>
+template <typename TYPE_, class cmpr_function>
 class type_cmp_fn_class {
-public:
+ public:
   bool operator()(const TYPE_ &a, const TYPE_ &b) {
     return cmpr_function(a, b);
   }
 };
 
-
-mjz_Str ULL_LL_to_str(uint64_t value, int radix, bool is_signed, bool force_neg = 0);
+mjz_Str ULL_LL_to_str(uint64_t value, int radix, bool is_signed,
+                      bool force_neg = 0);
 
 }  // namespace mjz_ard
 // using mjz_ard::__FlashStringHelper;
 // using mjz_ard::mjz_Str;
-//using namespace opt;//sorry
+// using namespace opt;//sorry
 typedef mjz_ard::mjz_Str mjz_Str;
 typedef std::string string;
 typedef mjz_ard::hash_sha_512 hash_sha_512;
@@ -1682,30 +1823,3 @@ typedef mjz_ard::StringSumHelper mjz_StringSumHelper;
 #undef NO_IGNORE_CHAR
 #endif  // __mjz_ard_STRINGS__
 #endif  // __cplusplus
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
