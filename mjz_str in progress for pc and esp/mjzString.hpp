@@ -268,7 +268,7 @@ extern std::shared_ptr<mjz_Str_DATA_storage_cls>
     main_mjz_Str_DATA_storage_Obj_ptr;
 
 #ifndef Arduino
-class mjz_Str : public std__string_view_if_is {
+class mjz_Str  {
 #if 0
   }
 #endif
@@ -282,8 +282,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   bool did_drived_mjz_Str_DATA_storage_Obj_ptr_set{0};
   std::shared_ptr<mjz_Str_DATA_storage_cls>
       &drived_mjz_Str_DATA_storage_Obj_ptr_set();
-  void (mjz_Str::*update_event_F_p)(
-      void);              // to call (object_ptr->*pointer_name)(arguments)//
+  //void (mjz_Str::*update_event_F_p)( void); //depated             // to call (object_ptr->*pointer_name)(arguments)//
   char *buffer;           // the actual char array
   unsigned int capacity;  // the array length minus one (for the '\0')
   unsigned int len;       // the mjz_Str length (not counting the '\0')
@@ -1461,8 +1460,8 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   }
 
  protected:
-  if_virtual_then_virtual void update_event();
-  if_virtual_then_virtual void update_event_ard_string();
+ // if_virtual_then_virtual void update_event();
+ // if_virtual_then_virtual void update_event_ard_string();
 
   if_virtual_then_virtual const mjz_Str &get_shift_op_rc() const;
   if_virtual_then_virtual mjz_Str &get_shift_op_r();
@@ -1647,6 +1646,10 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
 
   // ret( (gets a lambda / function pointer / std::function with ret(mjz_Str *
   // , ... something)),...something)
+  template <typename your_FUNCTION_Type>
+  if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_) {
+    return your__function_(this);
+  }
   template <typename your_FUNCTION_Type, typename... Args_frScnf>
   if_virtual_then_virtual auto operator()(your_FUNCTION_Type your__function_,
                                           Args_frScnf &...args_frScnf) {

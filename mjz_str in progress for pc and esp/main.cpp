@@ -13,7 +13,7 @@ class mjz_Str_dir_test_class : public mjz_Str {
     void* retval_ = mjz_Str::realloc(ptr, new_size);
     bool bufr__is_in_stack = realloc_helper_is_in_stack(retval_);
     ::printf("\n\n mjz_Str_dir_test_class realloces %s \n\n",
-                  bufr__is_in_stack ? " in stack " : " in buffer ");
+             bufr__is_in_stack ? " in stack " : " in buffer ");
     return retval_;
   }
   virtual void free(void*& ptr) override {
@@ -33,7 +33,7 @@ class mjz_Str_dir_test_class : public mjz_Str {
   mjz_Str_dir_test_class(const mjz_Str& s) : mjz_Str(s) {
     mjz_Str_dir_test_class_created();
   }
-  mjz_Str_dir_test_class( mjz_Str&& s) : mjz_Str(std::move(s)) {
+  mjz_Str_dir_test_class(mjz_Str&& s) : mjz_Str(std::move(s)) {
     mjz_Str_dir_test_class_created();
   }
   mjz_Str_dir_test_class(const char* p) : mjz_Str(p) {
@@ -82,7 +82,8 @@ class mjz_Str_dir_test_class : public mjz_Str {
     return *this;
   }
   virtual ~mjz_Str_dir_test_class() {
-    free(buffer_ref());  // don't need to but the vtable of the
+    free(
+        buffer_ref());  // don't need to but the vtable of the
                         // mjz_Str_dir_test_class free gets destroyed when
                         // ~mjz_Str() gets called so mjz_Str::free is called see
                         // https://stackoverflow.com/questions/41732051/when-is-a-vtable-destroy-in-c
@@ -144,7 +145,6 @@ uint64_t timeSinceEpochMillisec() {
       .count();
 }
 
-
 int main2() {
   uint64_t strtms = timeSinceEpochMillisec();
   int it_num = 10000;
@@ -163,8 +163,6 @@ int main2() {
 
     // for (int i{}; i < mycolnum; i++)
     //   std::cout << '\n' << i << ".th col : \"" << my2dar[i] << "\"  \n";
-
-   
   }
   uint64_t strtms2 = timeSinceEpochMillisec();
   double ms_prop = (double)(strtms2 - strtms) / it_num;
@@ -173,24 +171,128 @@ int main2() {
     char* bfrnew = (new char[100 * 408]);
     memset(bfrnew, 0, 100 * 408);
     for (long i{}; i < 100 * 408; i++) {
-      bfrnew[i] = i;
+      bfrnew[i] = (char)i;
     }
     delete[] bfrnew;
   }
   double ms_prop2 = (double)(timeSinceEpochMillisec() - strtms2) / it_num;
-  std::cout << "\nend  in " << ms_prop2  << " ms per op \n ";
+  std::cout << "\nend  in " << ms_prop2 << " ms per op \n ";
 
-   std::cout << "\n class is  " << ms_prop2 - ms_prop << " ms faster per op \n ";
-
+  std::cout << "\n class is  " << ms_prop2 - ms_prop << " ms faster per op \n ";
 
   return 0;
 }
-int main( ) {
+int main3() {
+  {
     String mystr;
-  mystr.change_reinterpret_char_char('\1');
+    mystr.change_reinterpret_char_char('\1');
     std::cin >> mystr;
-  mystr.change_reinterpret_char_char('\\');
+    mystr.change_reinterpret_char_char('\\');
     mystr <<= *((mjz_Str*)(&mystr));
-   std::cout << mystr;
+    std::cout << mystr;
+  }
+  return 0;
+}
 
+int loop() {
+  mjz_Str mystr;
+  mystr.change_reinterpret_char_char('\1');
+  std::cout << (mystr = "enter a sentence : \n");
+  std::cin >> mystr();
+  std::vector<mjz_Str> my_words(10);
+  unsigned int word_count{};
+  int index_of_first_char_of_word{};
+  int index_of_first_space_after_previos{};
+  bool DO_break{};
+  while (!DO_break) {
+    index_of_first_space_after_previos = [&]() -> int {
+      std::vector<int> my_list_of_spacers = {
+          mystr.indexOf(' ', index_of_first_char_of_word),
+          mystr.indexOf('\n', index_of_first_char_of_word),
+          mystr.indexOf(';', index_of_first_char_of_word),
+          mystr.indexOf(',', index_of_first_char_of_word),
+          mystr.indexOf('.', index_of_first_char_of_word)};
+      
+
+      auto it = std::max(my_list_of_spacers.begin(),//chose the biggest
+                         my_list_of_spacers.end() - 1, [](auto& a, auto& b) {
+                           bool re_bol{};
+                           if (*a == -1)
+                             re_bol = 1;//chose b
+                           else if (*b == -1)
+                             re_bol = 0;//chose a
+                           else {
+                             re_bol = !(*a < *b);  // chose the small one
+                           }
+                           return re_bol;
+                         });
+      return *it;
+    }();
+    if (index_of_first_space_after_previos == -1) {
+      DO_break = 1;
+      my_words[word_count] = mystr.substring(index_of_first_char_of_word);
+    } else {
+      my_words[word_count] = mystr.substring(
+          index_of_first_char_of_word, index_of_first_space_after_previos);
+    }
+    index_of_first_char_of_word = index_of_first_space_after_previos + 1;
+    if (my_words[word_count++].is_blank()) {
+      --word_count;
+    }
+  }
+  std::cout << "number of words is : " << word_count << "\n\r";
+  for (auto& obj : my_words) {
+    std::cout << obj;
+    std::cout << "\n\r";
+  }
+  auto it_ =
+      std::max(my_words.begin(), my_words.begin() + (word_count - 1),
+               [](auto& a, auto& b) { return b->length() > a->length(); });
+  std::cout << "\n\r in words : \"" << *it_ << "\" is the longest \n heare is the revese order of  them :\"";
+  {
+    auto it = my_words.begin() + word_count - 1;
+    while (true) {
+      std::cout << *it;
+      if (it == my_words.begin()) { 
+        break;
+      }
+      std::cout << " ";
+      --it;
+
+    }
+  }
+
+  std::cout << "\" \n what word do you want to replace \n";
+  std::cin >> mystr();
+  std::cout << " replace with what \n";
+  mjz_Str myrep_val;
+  std::cin >> myrep_val;
+  std::cout << " hear you go \n";
+  for (auto& obj : my_words) {
+    if (obj == mystr) obj = myrep_val;
+    std::cout << obj << " ";
+  }
+
+  std::cout << "\n";
+
+  return mystr()([&](auto THis_) -> int {
+    mjz_Str& mystr = *THis_;
+    mystr = "exiting enter someting to exit\n";
+    mystr.change_reinterpret_char_char('\1');
+    std::cout << mystr;
+    std::cin >> mystr();
+    mystr.change_reinterpret_char_char('\\');
+    mystr <<= *((mjz_Str*)(&mystr));
+    std::cout << mystr;
+    return (long)mystr;
+  });
+}
+
+void setup() {}
+int loop();
+int main() {
+  setup();
+  while (!loop())
+    ;
+  return 0;
 }

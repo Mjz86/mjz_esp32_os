@@ -432,7 +432,7 @@ mjz_Str::mjz_Str(const char *cstr) {
     copy(cstr, (uint32_t)strlen(cstr));
   }
 
-  (this->*update_event_F_p)();  //(object_ptr->*pointer_name)(arguments)
+  // (this->*update_event_F_p)(); //depated  //(object_ptr->*pointer_name)(arguments)
 }
 
 mjz_Str::mjz_Str(const char *cstr, unsigned int length) {
@@ -442,19 +442,19 @@ mjz_Str::mjz_Str(const char *cstr, unsigned int length) {
     copy(cstr, length);
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(const mjz_Str &value) {
   init();
   *this = value;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(const __FlashStringHelper *pstr) {
   init();
   *this = pstr;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(mjz_Str &&rval)
@@ -462,7 +462,7 @@ mjz_Str::mjz_Str(mjz_Str &&rval)
                                     : rval.buffer),
     capacity(rval.capacity), len(rval.len),
     stack_obj_buf(rval.stack_obj_buf) {
-  update_event_F_p = &mjz_Str::update_event;
+ // update_event_F_p = &mjz_Str::update_event;//depated
 
   if (rval.stack_obj_buf.get()) {
     rval.free(rval.buffer);
@@ -472,7 +472,7 @@ mjz_Str::mjz_Str(mjz_Str &&rval)
   rval.capacity = 0;
   rval.len = 0;
   rval.stack_obj_buf.set(0);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(char c) {
@@ -481,7 +481,7 @@ mjz_Str::mjz_Str(char c) {
   buf[0] = c;
   buf[1] = 0;
   *this = buf;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(unsigned char value, unsigned char base) {
@@ -489,7 +489,7 @@ mjz_Str::mjz_Str(unsigned char value, unsigned char base) {
   char buf[1 + 8 * sizeof(unsigned char)];
   utoa(value, buf, base);
   *this = buf;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(int value, unsigned char base) {
@@ -497,7 +497,7 @@ mjz_Str::mjz_Str(int value, unsigned char base) {
   char buf[2 + 8 * sizeof(int)];
   itoa(value, buf, base);
   *this = buf;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(unsigned int value, unsigned char base) {
@@ -505,7 +505,7 @@ mjz_Str::mjz_Str(unsigned int value, unsigned char base) {
   char buf[1 + 8 * sizeof(unsigned int)];
   utoa(value, buf, base);
   *this = buf;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(long value, unsigned char base) {
@@ -513,7 +513,7 @@ mjz_Str::mjz_Str(long value, unsigned char base) {
   char buf[2 + 8 * sizeof(long)];
   ltoa(value, buf, base);
   *this = buf;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(unsigned long value, unsigned char base) {
@@ -521,21 +521,21 @@ mjz_Str::mjz_Str(unsigned long value, unsigned char base) {
   char buf[1 + 8 * sizeof(unsigned long)];
   ultoa(value, buf, base);
   *this = buf;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 mjz_Str::mjz_Str(long long int value, unsigned char base) {
   init();
   char buf[2 + 8 * sizeof(long long)];
   lltoa(value, buf, base);
   *this = buf;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 mjz_Str::mjz_Str(long long unsigned int value, unsigned char base) {
   init();
   char buf[1 + 8 * sizeof(unsigned long long)];
   ulltoa(value, buf, base);
   *this = buf;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(float value, unsigned char decimalPlaces) {
@@ -544,7 +544,7 @@ mjz_Str::mjz_Str(float value, unsigned char decimalPlaces) {
   char buf[FLOAT_BUF_SIZE];
   decimalPlaces = min_macro_(decimalPlaces, FLT_MAX_DECIMAL_PLACES);
   *this = dtostrf(value, (decimalPlaces + 2), decimalPlaces, buf);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::mjz_Str(double value, unsigned char decimalPlaces) {
@@ -553,13 +553,13 @@ mjz_Str::mjz_Str(double value, unsigned char decimalPlaces) {
   char buf[DOUBLE_BUF_SIZE];
   decimalPlaces = min_macro_(decimalPlaces, DBL_MAX_DECIMAL_PLACES);
   *this = dtostrf(value, (decimalPlaces + 2), decimalPlaces, buf);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str::~mjz_Str(void) {
 
   if (buffer) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     mjz_Str::free(buffer); 
   }
 }// i  don't need to do this but this is explained in stackoverfllow . the vtable of the drived free override gets destroyed when ~mjz_Str() gets called so mjz_Str::free shoud be called and i do it explicitly  its not necessary but i do it  see https://stackoverflow.com/questions/41732051/when-is-a-vtable-destroy-in-c 
@@ -630,7 +630,7 @@ Elmar Zander
 
 inline void mjz_Str::init(void) {
   buffer = NULL;
-  update_event_F_p = &mjz_Str::update_event;
+ // update_event_F_p = &mjz_Str::update_event;//depated
   ;
   capacity = 0;
   stack_obj_buf.set(0);
@@ -645,7 +645,7 @@ void mjz_Str::invalidate(void) {
   buffer = NULL;
   capacity = len = 0;
   stack_obj_buf.set(0);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 bool mjz_Str::reserve(unsigned int size_, bool just_size) {
@@ -660,7 +660,7 @@ bool mjz_Str::reserve(unsigned int size_, bool just_size) {
     }
   }
   if (buffer && capacity >= size_) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return 1;
   }
 
@@ -669,11 +669,11 @@ bool mjz_Str::reserve(unsigned int size_, bool just_size) {
       buffer[0] = 0;
     }
 
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return true;
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return false;
 }
 
@@ -685,7 +685,7 @@ bool mjz_Str::addto_length(uint32_t addition_tolen, bool just_size) {
   }
 
   if (ret) {
-    len += addition_tolen;
+    len = len + addition_tolen;
   }
 
   return ret;
@@ -764,11 +764,11 @@ bool mjz_Str::changeBuffer(unsigned int maxStrLen) {
   if (newbuffer) {
     buffer = newbuffer;
     capacity = maxStrLen;
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return true;
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return false;
 }
 
@@ -779,27 +779,27 @@ bool mjz_Str::changeBuffer(unsigned int maxStrLen) {
 mjz_Str &mjz_Str::copy(const char *cstr, unsigned int length) {
   if (!reserve(length)) {
     invalidate();
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return *this;
   }
 
   len = length;
   memcpy(buffer, cstr, length);
   buffer[len] = '\0';
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 #define PGM_P const char *
 mjz_Str &mjz_Str::copy(const __FlashStringHelper *pstr, unsigned int length) {
   if (!reserve(length)) {
     invalidate();
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return *this;
   }
 
   len = length;
   memcpy(buffer, (PGM_P)pstr, length);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
@@ -822,12 +822,12 @@ void mjz_Str::move(mjz_Str &rhs) {
     rhs.capacity = 0;
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 mjz_Str &mjz_Str::operator=(const mjz_Str &rhs) {
   if (this == &rhs) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return *this;
   }
 
@@ -837,13 +837,13 @@ mjz_Str &mjz_Str::operator=(const mjz_Str &rhs) {
     invalidate();
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
 mjz_Str &mjz_Str::operator=(mjz_Str &&rval) {
   move(rval);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
@@ -854,7 +854,7 @@ mjz_Str &mjz_Str::operator=(const char *cstr) {
     invalidate();
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
@@ -865,7 +865,7 @@ mjz_Str &mjz_Str::operator=(const __FlashStringHelper *pstr) {
     invalidate();
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
@@ -874,7 +874,7 @@ mjz_Str &mjz_Str::operator=(const __FlashStringHelper *pstr) {
 /*********************************************/
 
 bool mjz_Str::concat(const mjz_Str &s) {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(s.buffer, s.len);
 }
 
@@ -882,128 +882,128 @@ bool mjz_Str::concat(const char *cstr, unsigned int length) {
   unsigned int newlen = len + length;
 
   if (!cstr) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return false;
   }
 
   if (length == 0) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return true;
   }
 
   if (!reserve(newlen)) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return false;
   }
 
   memcpy(buffer + len, cstr, length);
   len = newlen;
   buffer[len] = '\0';
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return true;
 }
 
 bool mjz_Str::concat(const char *cstr) {
   if (!cstr) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return false;
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(cstr, (uint32_t)strlen(cstr));
 }
 
 bool mjz_Str::concat(char c) {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(&c, 1);
 }
 
 bool mjz_Str::concat(unsigned char num) {
   char buf[1 + 3 * sizeof(unsigned char)];
   itoa(num, buf, 10);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(buf);
 }
 
 bool mjz_Str::concat(int num) {
   char buf[2 + 3 * sizeof(int)];
   itoa(num, buf, 10);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(buf);
 }
 
 bool mjz_Str::concat(unsigned int num) {
   char buf[1 + 3 * sizeof(unsigned int)];
   utoa(num, buf, 10);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(buf);
 }
 
 bool mjz_Str::concat(long num) {
   char buf[2 + 3 * sizeof(long)];
   ltoa(num, buf, 10);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(buf);
 }
 
 bool mjz_Str::concat(unsigned long num) {
   char buf[1 + 3 * sizeof(unsigned long)];
   ultoa(num, buf, 10);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(buf);
 }
 
 bool mjz_Str::concat(long long num) {
   char buf[2 + 3 * sizeof(long long)];
   lltoa(num, buf, 10);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(buf);
 }
 
 bool mjz_Str::concat(unsigned long long num) {
   char buf[1 + 3 * sizeof(unsigned long long)];
   ulltoa(num, buf, 10);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(buf);
 }
 
 bool mjz_Str::concat(float num) {
   char buf[20];
   char *string = dtostrf(num, 4, 2, buf);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(string);
 }
 
 bool mjz_Str::concat(double num) {
   char buf[20];
   char *string = dtostrf(num, 4, 2, buf);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return concat(string);
 }
 
 bool mjz_Str::concat(const __FlashStringHelper *str) {
   if (!str) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return false;
   }
 
  unsigned int length = (unsigned int)strlen((const char *)str);
 
   if (length == 0) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return true;
   }
 
   unsigned int newlen = len + length;
 
   if (!reserve(newlen)) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return false;
   }
 
   memcpy(buffer + len, (const char *)str, newlen);
   len = newlen;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return true;
 }
 
@@ -1149,77 +1149,77 @@ StringSumHelper &operator+(const StringSumHelper &lhs,
 int mjz_Str::compareTo(const mjz_Str &s) const {
   if (!buffer || !s.buffer) {
     if (s.buffer && s.len > 0) {
-      //(this->*update_event_F_p)();
+      //// (this->*update_event_F_p)(); //depated
       return 0 - *(unsigned char *)s.buffer;
     }
 
     if (buffer && len > 0) {
-      //(this->*update_event_F_p)();
+      //// (this->*update_event_F_p)(); //depated
       return *(unsigned char *)buffer;
     }
 
-    //(this->*update_event_F_p)();
+    //// (this->*update_event_F_p)(); //depated
     return 0;
   }
 
   // if( len != s.len)return -1;
-  //(this->*update_event_F_p)();
+  //// (this->*update_event_F_p)(); //depated
   return MJZ_STRnCMP(buffer, s.buffer, len);
 }
 
 int mjz_Str::compareTo(const char *cstr) const {
   if (!buffer || !cstr) {
     if (cstr && *cstr) {
-      // (this->*update_event_F_p)();
+      // // (this->*update_event_F_p)(); //depated
       return 0 - *(unsigned char *)cstr;
     }
 
     if (buffer && len > 0) {
-      // (this->*update_event_F_p)();
+      // // (this->*update_event_F_p)(); //depated
       return *(unsigned char *)buffer;
     }
 
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return 0;
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return MJZ_STRCMP(buffer, cstr);
 }
 
 bool mjz_Str::equals(const mjz_Str &s2) const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (len == s2.len && compareTo(s2) == 0);
 }
 
 bool mjz_Str::equals(const char *cstr) const {
   if (len == 0) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return (cstr == NULL || *cstr == 0);
   }
 
   if (cstr == NULL) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return buffer[0] == 0;
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return MJZ_STRCMP(buffer, cstr) == 0;
 }
 
 bool mjz_Str::equalsIgnoreCase(const mjz_Str &s2) const {
   if (this == &s2) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return true;
   }
 
   if (len != s2.len) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return false;
   }
 
   if (len == 0) {
-    //(this->*update_event_F_p)();
+    //// (this->*update_event_F_p)(); //depated
     return true;
   }
 
@@ -1228,42 +1228,42 @@ bool mjz_Str::equalsIgnoreCase(const mjz_Str &s2) const {
 
   while (*p1) {
     if (tolower(*p1++) != tolower(*p2++)) {
-      // (this->*update_event_F_p)();
+      // // (this->*update_event_F_p)(); //depated
       return false;
     }
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return true;
 }
 
 bool mjz_Str::startsWith(const mjz_Str &s2) const {
   if (len < s2.len) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return false;
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return startsWith(s2, 0);
 }
 
 bool mjz_Str::startsWith(const mjz_Str &s2, unsigned int offset) const {
   if (offset > len - s2.len || !buffer || !s2.buffer) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return false;
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return MJZ_STRnCMP(&buffer[offset], s2.buffer, s2.len) == 0;
 }
 
 bool mjz_Str::endsWith(const mjz_Str &s2) const {
   if (len < s2.len || !buffer || !s2.buffer) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return false;
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return MJZ_STRnCMP(&buffer[len - s2.len], s2.buffer, s2.len) == 0;
 }
 
@@ -1273,7 +1273,7 @@ bool mjz_Str::endsWith(const mjz_Str &s2) const {
 
 char mjz_Str::charAt(unsigned int loc) const {
   if (loc < 0) loc += len;
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return operator[](loc);
 }
 
@@ -1283,11 +1283,11 @@ void mjz_Str::setCharAt(unsigned int loc, char c) {
     buffer[loc] = c;
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 char mjz_Str::charAt(int loc) const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   if (loc < 0) loc += len;
   return operator[](loc);
 }
@@ -1298,7 +1298,7 @@ void mjz_Str::setCharAt(int loc, char c) {
     buffer[loc] = c;
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 char &mjz_Str::operator[](unsigned int index) {
@@ -1306,21 +1306,21 @@ char &mjz_Str::operator[](unsigned int index) {
 
   if (index >= len || !buffer) {
     dummy_writable_char = 0;
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return dummy_writable_char;
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return buffer[index];
 }
 
 char mjz_Str::operator[](unsigned int index) const {
   if (index >= len || !buffer) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return 0;
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return buffer[index];
 }
 
@@ -1333,11 +1333,11 @@ char &mjz_Str::operator[](int index) {
 
   if ((uint32_t)index >= len || !buffer) {
     dummy_writable_char = 0;
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return dummy_writable_char;
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return buffer[index];
 }
 
@@ -1347,24 +1347,24 @@ char mjz_Str::operator[](int index) const {
   }
 
   if ((uint32_t)index >= len || !buffer) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return 0;
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return buffer[index];
 }
 
 void mjz_Str::getBytes(unsigned char *buf, unsigned int bufsize,
                        unsigned int index) const {
   if (!bufsize || !buf) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return;
   }
 
   if (index >= len) {
     buf[0] = 0;
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return;
   }
 
@@ -1376,7 +1376,7 @@ void mjz_Str::getBytes(unsigned char *buf, unsigned int bufsize,
 
   memcpy((char *)buf, buffer + index, min_macro_(n, len));
   buf[n] = 0;
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
 }
 
 /*********************************************/
@@ -1480,7 +1480,7 @@ mjz_Str mjz_Str::substring(unsigned int left, unsigned int right) const {
   mjz_Str out;
 
   if (left >= len) {
-    // (this->*update_event_F_p)();
+    // // (this->*update_event_F_p)(); //depated
     return out;
   }
 
@@ -1489,7 +1489,7 @@ mjz_Str mjz_Str::substring(unsigned int left, unsigned int right) const {
   }
 
   out.copy(buffer + left, right - left);
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return out;
 }
 
@@ -1499,7 +1499,7 @@ mjz_Str mjz_Str::substring(unsigned int left, unsigned int right) const {
 
 void mjz_Str::replace(char find, char replace) {
   if (!buffer) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return;
   }
 
@@ -1509,12 +1509,12 @@ void mjz_Str::replace(char find, char replace) {
     }
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 void mjz_Str::replace(const mjz_Str &find, const mjz_Str &replace) {
   if (len == 0 || find.len == 0) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return;
   }
 
@@ -1537,7 +1537,7 @@ void mjz_Str::replace(const mjz_Str &find, const mjz_Str &replace) {
     }
 
     if (size_ == len) {
-      (this->*update_event_F_p)();
+      // (this->*update_event_F_p)(); //depated
       return;
     }
 
@@ -1560,12 +1560,12 @@ void mjz_Str::replace(const mjz_Str &find, const mjz_Str &replace) {
     }
 
     if (size_ == len) {
-      (this->*update_event_F_p)();
+      // (this->*update_event_F_p)(); //depated
       return;
     }
 
     if (size_ > capacity && !changeBuffer(size_)) {
-      (this->*update_event_F_p)();
+      // (this->*update_event_F_p)(); //depated
       return;  // XXX: tell user!
     }
 
@@ -1581,7 +1581,7 @@ void mjz_Str::replace(const mjz_Str &find, const mjz_Str &replace) {
     }
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 void mjz_Str::remove(unsigned int index) {
@@ -1589,17 +1589,17 @@ void mjz_Str::remove(unsigned int index) {
   // below will take care of truncating it at the end of the
   // string.
   remove(index, (unsigned int)-1);
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 void mjz_Str::remove(unsigned int index, unsigned int count) {
   if (index >= len) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return;
   }
 
   if (count <= 0) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return;
   }
 
@@ -1611,12 +1611,12 @@ void mjz_Str::remove(unsigned int index, unsigned int count) {
   len = len - count;
   memmove(writeTo, buffer + index + count, len - index);
   buffer[len] = 0;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 void mjz_Str::toLowerCase(void) {
   if (!buffer) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return;
   }
 
@@ -1624,12 +1624,12 @@ void mjz_Str::toLowerCase(void) {
     *p = tolower(*p);
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 void mjz_Str::toUpperCase(void) {
   if (!buffer) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return;
   }
 
@@ -1637,12 +1637,12 @@ void mjz_Str::toUpperCase(void) {
     *p = toupper(*p);
   }
 
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 void mjz_Str::trim(void) {
   if (!buffer || len == 0) {
-    (this->*update_event_F_p)();
+    // (this->*update_event_F_p)(); //depated
     return;
   }
 
@@ -1665,7 +1665,7 @@ void mjz_Str::trim(void) {
   }
 
   buffer[len] = 0;
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
 }
 
 /*********************************************/
@@ -1675,15 +1675,15 @@ void mjz_Str::trim(void) {
 long mjz_Str::toInt(void) const {
   if (buffer) {
     try {
-      // (this->*update_event_F_p)();
+      // // (this->*update_event_F_p)(); //depated
       return std::stol(buffer);
     } catch (...) {
-      // (this->*update_event_F_p)();
+      // // (this->*update_event_F_p)(); //depated
       return 0;
     }
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return 0;
 }
 long long mjz_Str::toLL(void) const {
@@ -1703,158 +1703,160 @@ long long mjz_Str::to_LL(int radix, bool *had_error,
 }
 
 float mjz_Str::toFloat(void) const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return float(toDouble());
 }
 
 double mjz_Str::toDouble(void) const {
   if (buffer) {
     try {
-      // (this->*update_event_F_p)();
+      // // (this->*update_event_F_p)(); //depated
       return std::stod(buffer);
     } catch (...) {
-      // (this->*update_event_F_p)();
+      // // (this->*update_event_F_p)(); //depated
       return 0;
     }
   }
 
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return 0;
 }
 
 void *mjz_Str::do_this_for_me(function_ptr function_ptr_, void *x) {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return function_ptr_(*this, x);
 }
 
 const mjz_Str &mjz_Str::get_shift_op_rc() const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (const mjz_Str &)*this;
 }
 mjz_Str &mjz_Str::get_shift_op_r() {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 const mjz_Str &mjz_Str::get_shift_op_lc() const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (const mjz_Str &)*this;
 }
 mjz_Str &mjz_Str::get_shift_op_l() {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
 const mjz_Str &mjz_Str::get_shift_op_r_sc() const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (const mjz_Str &)*this;
 }
 mjz_Str &mjz_Str::get_shift_op_r_s() {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 const mjz_Str &mjz_Str::get_shift_op_l_sc() const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (const mjz_Str &)*this;
 }
 mjz_Str &mjz_Str::get_shift_op_l_s() {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
 const mjz_Str &mjz_Str::get_s_shift_op_rc() const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (const mjz_Str &)*this;
 }
 mjz_Str &mjz_Str::get_s_shift_op_r() {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 const mjz_Str &mjz_Str::get_s_shift_op_lc() const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (const mjz_Str &)*this;
 }
 mjz_Str &mjz_Str::get_s_shift_op_l() {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
 const mjz_Str &mjz_Str::get_s_shift_op_r_sc() const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (const mjz_Str &)*this;
 }
 mjz_Str &mjz_Str::get_s_shift_op_r_s() {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 const mjz_Str &mjz_Str::get_s_shift_op_l_sc() const {
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return (const mjz_Str &)*this;
 }
 mjz_Str &mjz_Str::get_s_shift_op_l_s() {
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return *this;
 }
 
 mjz_Str &mjz_Str::operator>>(mjz_Str &typeing) {
   // typeing.get_shift_op_r() += get_s_shift_op_r();
   helper__op_shift_input_(*this, get_s_shift_op_r(), typeing.get_shift_op_r());
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return get_s_shift_op_r();
 }
 mjz_Str &mjz_Str::operator>>(mjz_Str *typeing) {
   // typeing->get_shift_op_r() += get_s_shift_op_r();
   helper__op_shift_input_(*this, get_s_shift_op_r(), typeing->get_shift_op_r());
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return get_s_shift_op_r();
 }
 const mjz_Str &mjz_Str::operator>>(mjz_Str &typeing) const {
   // typeing.get_shift_op_r() += get_s_shift_op_rc();
   helper__op_shift_input_(*this, get_s_shift_op_rc(), typeing.get_shift_op_r());
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return get_s_shift_op_rc();
 }
 const mjz_Str &mjz_Str::operator>>(mjz_Str *typeing) const {
   // typeing->get_shift_op_r() += get_s_shift_op_rc();
   helper__op_shift_input_(*this, get_s_shift_op_rc(),
                           typeing->get_shift_op_r());
-  // (this->*update_event_F_p)();
+  // // (this->*update_event_F_p)(); //depated
   return get_s_shift_op_rc();
 }
 mjz_Str &mjz_Str::operator<<(mjz_Str &typeing) {
   // get_s_shift_op_l() += typeing.get_shift_op_l();
   helper__op_shift_input_(*this, typeing.get_shift_op_l(), get_s_shift_op_l());
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return get_s_shift_op_l();
 }
 mjz_Str &mjz_Str::operator<<(mjz_Str *typeing) {
   //  get_s_shift_op_l() += typeing->get_shift_op_l();
   helper__op_shift_input_(*this, typeing->get_shift_op_l(), get_s_shift_op_l());
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return get_s_shift_op_l();
 }
 mjz_Str &mjz_Str::operator<<(const mjz_Str &typeing) {
   // get_s_shift_op_l() += typeing.get_shift_op_lc();
   helper__op_shift_input_(*this, typeing.get_shift_op_lc(), get_s_shift_op_l());
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return get_s_shift_op_l();
 }
 mjz_Str &mjz_Str::operator<<(mjz_Str &&typeing) {
   // get_s_shift_op_l() += typeing.get_shift_op_lc();
   helper__op_shift_input_(*this, typeing.get_shift_op_lc(), get_s_shift_op_l());
-  (this->*update_event_F_p)();
+  // (this->*update_event_F_p)(); //depated
   return get_s_shift_op_l();
 }
 
 #ifndef Arduino
 
-void mjz_Str::update_event() {
-  update_event_ard_string();
-}
+//void mjz_Str::update_event() {
+//  update_event_ard_string();
+//}
 
-void mjz_Str::update_event_ard_string() { std::string_view::operator=(buffer); }
+//void mjz_Str::update_event_ard_string() {
+  //  std::string_view::operator=(buffer);//depatred
+//}
 
 #else
-
+/*
 void mjz_Str::update_event() {
   return;
 }
@@ -1862,7 +1864,7 @@ void mjz_Str::update_event() {
 void mjz_Str::update_event_ard_string() {
   return;
 }
-
+*/
 #endif
 
 mjz_Str mjz_Str::string_do_interpret() {
