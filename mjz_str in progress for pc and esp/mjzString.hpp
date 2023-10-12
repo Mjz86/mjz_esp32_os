@@ -296,7 +296,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   virtual void *realloc(void *ptr, size_t new_size);
   virtual void free(void *&ptr);
   virtual void free(void *const &ptr);
-  static constexpr int stack_buffer_size = 40;
+  static constexpr int stack_buffer_size = 33;
   class stack_str_buf {
     bool STR_is_in_stack{};
 
@@ -314,12 +314,12 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
     stack_str_buf &operator=(const stack_str_buf &) = default;
     bool set(bool STR_is_in_stack_) {
       STR_is_in_stack = STR_is_in_stack_;
+      if (STR_is_in_stack_)goto _return___;
 
-      if (!STR_is_in_stack_)
         for (long i{}; i <= stack_buffer_size; i++) {
           stack_buffer[i] = 0;
         }
-
+      _return___:
       return STR_is_in_stack;
     }
     bool get() { return STR_is_in_stack; }
@@ -582,7 +582,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   mjz_Str(const mjz_Str &str);
   mjz_Str(const __FlashStringHelper *str);
 
-  explicit mjz_Str(mjz_Str &&rval);
+  explicit mjz_Str(mjz_Str &&rval)noexcept;
   // explicit mjz_Str(const mjz_Str *&&rval) : mjz_Str(std::move(*rval)) {
   // }// this will give me headaches in the long run so i dont move it
   explicit mjz_Str(const mjz_Str *const &rval) : mjz_Str(*rval) {}
@@ -803,7 +803,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
 
   if_virtual_then_virtual mjz_Str &operator=(const char *cstr);
   if_virtual_then_virtual mjz_Str &operator=(const __FlashStringHelper *str);
-  if_virtual_then_virtual mjz_Str &operator=(mjz_Str &&rval);
+  if_virtual_then_virtual mjz_Str &operator=(mjz_Str &&rval)noexcept;
   if_virtual_then_virtual mjz_Str &operator=(const mjz_Str *const &rval) {
     return operator=(*rval);
   }
@@ -854,6 +854,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
     typeing->operator=(empty_STRING_C_STR);
     return operator>>(typeing);
   }
+  
   if_virtual_then_virtual mjz_Str &operator<<(mjz_Str &typeing);
   if_virtual_then_virtual mjz_Str &operator<<(mjz_Str *typeing);
   if_virtual_then_virtual mjz_Str &operator<<(const mjz_Str &typeing);
@@ -1194,8 +1195,8 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
 
     iterator_template(Type *iter = nullptr) : m_iterator{iter} {}
 
-    iterator_template(const iterator_template &p) : m_iterator(p.m_iterator) {}
-    iterator_template(iterator_template &&p) : m_iterator(p.m_iterator) {}
+    iterator_template(const iterator_template &p)noexcept : m_iterator(p.m_iterator) {}
+    iterator_template(iterator_template &&p)noexcept : m_iterator(p.m_iterator) {}
     iterator_template &operator=(Type *iter) {
       m_iterator = iter;
       return *this;
@@ -1497,21 +1498,21 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
  public:
   template <typename... Args_frScnf>
   if_virtual_then_virtual size_t write(Args_frScnf &...args_frScnf) {
-    mjz_Str return_val = mjz_Str(args_frScnf...);
+    mjz_Str return_val = std::move(mjz_Str(args_frScnf... ));
     return write((const uint8_t *)return_val.c_str(),
                  (size_t)return_val.length());
   }
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual size_t write(const Args_frScnf &...args_frScnf) {
-    mjz_Str return_val = mjz_Str(args_frScnf...);
+    mjz_Str return_val = std::move(mjz_Str(args_frScnf... ));
     return write((const uint8_t *)return_val.c_str(),
                  (size_t)return_val.length());
   }
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual size_t write(Args_frScnf &&...args_frScnf) {
-    mjz_Str return_val = mjz_Str(args_frScnf...);
+    mjz_Str return_val = std::move(mjz_Str(args_frScnf... ));
     return write((const uint8_t *)return_val.c_str(),
                  (size_t)return_val.length());
   }
@@ -1543,7 +1544,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator-=(Args_frScnf &...args_frScnf) {
-    return operator-=(mjz_Str(args_frScnf...));
+    return operator-=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str operator-(Args_frScnf &...args_frScnf) {
@@ -1552,7 +1553,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator/=(Args_frScnf &...args_frScnf) {
-    return operator/=(mjz_Str(args_frScnf...));
+    return operator/=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str operator/(Args_frScnf &...args_frScnf) {
@@ -1563,7 +1564,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator-=(
       const Args_frScnf &...args_frScnf) {
-    return operator-=(mjz_Str(args_frScnf...));
+    return operator-=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str operator-(const Args_frScnf &...args_frScnf) {
@@ -1573,7 +1574,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator/=(
       const Args_frScnf &...args_frScnf) {
-    return operator/=(mjz_Str(args_frScnf...));
+    return operator/=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str operator/(const Args_frScnf &...args_frScnf) {
@@ -1583,7 +1584,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator-=(Args_frScnf &&...args_frScnf) {
-    return operator-=(mjz_Str(args_frScnf...));
+    return operator-=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str operator-(Args_frScnf &&...args_frScnf) {
@@ -1592,7 +1593,7 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator/=(Args_frScnf &&...args_frScnf) {
-    return operator/=(mjz_Str(args_frScnf...));
+    return operator/=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str operator/(Args_frScnf &&...args_frScnf) {
@@ -1602,22 +1603,22 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator<<(Args_frScnf &...args_frScnf) {
-    return operator<<(mjz_Str(args_frScnf...));
+    return operator<<(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator<<=(Args_frScnf &...args_frScnf) {
     this->operator=(empty_STRING_C_STR);
-    return operator<<(mjz_Str(args_frScnf...));
+    return operator<<(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator=(Args_frScnf &...args_frScnf) {
-    return operator=(mjz_Str(args_frScnf...));
+    return operator=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator+=(Args_frScnf &...args_frScnf) {
-    return operator+=(mjz_Str(args_frScnf...));
+    return operator+=(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename your_FUNCTION_Type, typename... Args_frScnf>
@@ -1664,25 +1665,25 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator<<(
       const Args_frScnf &...args_frScnf) {
-    return operator<<(mjz_Str(args_frScnf...));
+    return operator<<(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator<<=(
       const Args_frScnf &...args_frScnf) {
     this->operator=(empty_STRING_C_STR);
-    return operator<<(mjz_Str(args_frScnf...));
+    return operator<<(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator=(
       const Args_frScnf &...args_frScnf) {
-    return operator=(mjz_Str(args_frScnf...));
+    return operator=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator+=(
       const Args_frScnf &...args_frScnf) {
-    return operator+=(mjz_Str(args_frScnf...));
+    return operator+=(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename your_FUNCTION_Type, typename... Args_frScnf>
@@ -1727,22 +1728,22 @@ class mjz_Str : public if_virtual_then_virtual Stream {  //
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator<<(Args_frScnf &&...args_frScnf) {
-    return operator<<(mjz_Str(args_frScnf...));
+    return operator<<(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator<<=(Args_frScnf &&...args_frScnf) {
     this->operator=(empty_STRING_C_STR);
-    return operator<<(mjz_Str(args_frScnf...));
+    return operator<<(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator=(Args_frScnf &&...args_frScnf) {
-    return operator=(mjz_Str(args_frScnf...));
+    return operator=(std::move(mjz_Str(args_frScnf... )));
   }
   template <typename... Args_frScnf>
   if_virtual_then_virtual mjz_Str &operator+=(Args_frScnf &&...args_frScnf) {
-    return operator+=(mjz_Str(args_frScnf...));
+    return operator+=(std::move(mjz_Str(args_frScnf... )));
   }
 
   template <typename your_FUNCTION_Type, typename... Args_frScnf>
